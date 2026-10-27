@@ -7,7 +7,9 @@
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
 <body>
-<title>Tinta Joven</title>
+<title>Tinta Joven · I.E. El Recuerdo</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<meta property="og:image" content="imagenes/portada-escuela.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap">
 <style>
@@ -63,6 +65,9 @@ a { color: var(--cobalt); }
 header.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--sheet); border-bottom: 1px solid var(--rule); }
 header.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 12px; flex-wrap: wrap; }
 .brand { font-family: var(--display); font-weight: 800; font-size: 22px; color: var(--ink); text-decoration: none; display: flex; align-items: baseline; gap: 8px; }
+.brand .logo { width: 44px; height: 44px; border-radius: 50%; background: #fff; border: 1.5px solid var(--rule-strong); object-fit: contain; padding: 3px; flex: none; }
+.brand { align-items: center; }
+.brand-name { display: grid; line-height: 1.1; }
 .brand small { font-family: var(--mono); font-weight: 400; font-size: 11px; color: var(--ink-soft); letter-spacing: 0.08em; text-transform: uppercase; }
 nav.main { display: flex; gap: 4px 18px; flex-wrap: wrap; font-family: var(--display); font-weight: 500; font-size: 15px; }
 nav.main a { color: var(--ink); text-decoration: none; padding: 4px 0; border-bottom: 2px solid transparent; }
@@ -74,13 +79,19 @@ nav.main a.admin-link { color: var(--cobalt); }
   background-image: linear-gradient(90deg, transparent calc(max(16px, env(safe-area-inset-left, 0px)) + 40px), var(--margin-red) calc(max(16px, env(safe-area-inset-left, 0px)) + 40px), var(--margin-red) calc(max(16px, env(safe-area-inset-left, 0px)) + 42px), transparent calc(max(16px, env(safe-area-inset-left, 0px)) + 42px)),
     repeating-linear-gradient(180deg, transparent 0, transparent 35px, var(--rule) 35px, var(--rule) 36px); }
 .hero .wrap { padding-block: 56px 48px; }
-.hero-inner { padding-left: 64px; display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 40px; align-items: end; }
+.hero-inner { padding-left: 64px; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 48px; align-items: center; }
 .hero h1 { font-size: clamp(52px, 9vw, 112px); font-weight: 800; letter-spacing: -0.03em; line-height: 0.95; }
 .hero h1 em { font-style: normal; color: var(--cobalt); }
 .hero .lede { font-size: 20px; margin-top: 20px; max-width: 34ch; }
 .hero .ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
-.issue-card { background: var(--sheet); border: 1.5px solid var(--ink); border-radius: 4px; padding: 20px; box-shadow: 6px 6px 0 var(--cobalt-tint); }
-.issue-card .num { font-family: var(--display); font-weight: 800; font-size: 64px; line-height: 1; color: var(--cobalt); }
+.hero-side { display: grid; gap: 20px; min-width: 0; }
+.photo { margin: 0; background: #fff; padding: 10px 10px 12px; border-radius: 3px; box-shadow: 0 1px 2px rgba(22,27,51,.18), 0 10px 24px rgba(22,27,51,.14); transform: rotate(1.2deg); position: relative; max-width: 100%; }
+.photo::before { content: ""; position: absolute; top: -12px; left: 50%; width: 96px; height: 24px; transform: translateX(-50%) rotate(-3deg); background: var(--marker); opacity: .75; }
+.photo img { display: block; width: 100%; height: auto; aspect-ratio: 5 / 3; object-fit: cover; }
+.photo figcaption { font-family: var(--mono); font-size: 11px; color: #4a5070; margin-top: 8px; letter-spacing: .04em; }
+.issue-card { background: var(--sheet); border: 1.5px solid var(--ink); border-radius: 4px; padding: 14px 18px; box-shadow: 6px 6px 0 var(--cobalt-tint); display: flex; gap: 16px; align-items: center; }
+.issue-card p { margin-top: 0 !important; }
+.issue-card .num { font-family: var(--display); font-weight: 800; font-size: 52px; line-height: 1; color: var(--cobalt); }
 .issue-card p { font-size: 15px; color: var(--ink-soft); margin-top: 8px; }
 .issue-card .status { display: inline-block; margin-top: 12px; font-family: var(--mono); font-size: 12px; background: var(--warn-tint); color: var(--warn); padding: 3px 8px; border-radius: 3px; }
 
@@ -182,6 +193,33 @@ fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
 .pill.devuelto { background: var(--paper); color: var(--margin-red); border: 1px solid var(--margin-red); }
 .empty { color: var(--ink-soft); font-size: 15px; padding: 20px; border: 1px dashed var(--rule-strong); border-radius: 6px; }
 
+/* Textos publicados */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.filters button { font-family: var(--display); font-weight: 500; font-size: 14px; border: 1px solid var(--rule-strong); background: var(--sheet); color: var(--ink); border-radius: 999px; padding: 7px 14px; cursor: pointer; }
+.filters button.on { background: var(--ink); color: var(--sheet); border-color: var(--ink); }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 20px; }
+.card { background: var(--sheet); border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; text-decoration: none; color: inherit; transition: border-color .15s, transform .15s; }
+.card:hover { border-color: var(--cobalt); transform: translateY(-2px); }
+.card img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; background: var(--cobalt-tint); }
+.card .in { padding: 18px; display: grid; gap: 8px; align-content: start; }
+.card .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--cobalt); }
+.card h3 { font-size: 20px; }
+.card p { font-size: 15px; color: var(--ink-soft); }
+.card .by { font-family: var(--mono); font-size: 12px; color: var(--ink-soft); }
+.reader { position: fixed; inset: 0; z-index: 20; background: var(--paper); overflow-y: auto; padding-bottom: env(safe-area-inset-bottom, 0px); }
+.reader-bar { position: sticky; top: 0; background: var(--sheet); border-bottom: 1px solid var(--rule); padding-top: env(safe-area-inset-top, 0px); }
+.reader-bar-in { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-block: 10px; }
+.reader-body { max-width: 720px; padding-block: 40px 80px; display: grid; gap: 14px; }
+.reader-body h1 { font-size: clamp(32px, 5vw, 52px); font-weight: 800; letter-spacing: -0.02em; }
+.reader-dek { font-size: 20px; color: var(--ink-soft); }
+.reader-by { font-family: var(--mono); font-size: 13px; color: var(--ink-soft); border-bottom: 1px solid var(--rule); padding-bottom: 16px; }
+.reader-body img { width: 100%; border-radius: 6px; }
+.reader-text { font-size: 19px; line-height: 1.75; display: grid; gap: 18px; }
+.reader-text h3 { font-size: 24px; margin-top: 8px; }
+.reader-text blockquote { margin: 0; padding-left: 18px; border-left: 3px solid var(--margin-red); font-style: italic; }
+.reader-text ul { margin: 0; padding-left: 22px; }
+body.leyendo { overflow: hidden; }
+
 footer { padding-block: 40px; font-size: 14px; color: var(--ink-soft); }
 footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 
@@ -198,8 +236,9 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
 
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#inicio">Tinta Joven <small>Club de Escritura</small></a>
+    <a class="brand" href="#inicio"><img class="logo" src="imagenes/escudo.png" alt="Escudo de la I.E. El Recuerdo" width="44" height="44"><span class="brand-name">Tinta Joven <small>I.E. El Recuerdo · Club de Escritura</small></span></a>
     <nav class="main" aria-label="Secciones del sitio">
+      <a href="#textos">Leer</a>
       <a href="#numero-1">Número 1</a>
       <a href="#secciones">Secciones</a>
       <a href="#club">El club</a>
@@ -223,15 +262,60 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
             <a class="btn ghost" href="#enviar">Enviar un texto</a>
           </div>
         </div>
-        <aside class="issue-card" aria-label="Estado del primer número">
-          <p class="eyebrow">Número</p>
-          <div class="num">01</div>
-          <p><b>Nuestra escuela, nuestras voces.</b> 12 textos en 5 secciones, de periodismo a poesía.</p>
-          <span class="status">En preparación · 8 semanas</span>
-        </aside>
+        <div class="hero-side">
+          <figure class="photo">
+            <img src="imagenes/portada-escuela.jpg" alt="Letrero de la Institución Educativa El Recuerdo con su escudo, en Córdoba, Colombia" width="1200" height="720">
+            <figcaption>Institución Educativa El Recuerdo · Córdoba, Colombia</figcaption>
+          </figure>
+          <aside class="issue-card" aria-label="Estado del primer número">
+            <div class="num">01</div>
+            <div>
+              <p><b>Nuestra escuela, nuestras voces.</b> 12 textos en 5 secciones, de periodismo a poesía.</p>
+              <span class="status">Número 1 en preparación</span>
+            </div>
+          </aside>
+        </div>
       </div>
     </div>
   </section>
+
+  <section class="block" id="textos">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Textos publicados</p>
+        <h2>Lee a nuestros escritores</h2>
+        <p>Noticias, opiniones, artículos y literatura de los estudiantes del club. Elige una sección o lee todo.</p>
+      </div>
+      <div class="filters" id="filtros" role="group" aria-label="Filtrar por sección">
+        <button type="button" class="on" data-sec="">Todo</button>
+        <button type="button" data-sec="Actualidad Escolar">Actualidad Escolar</button>
+        <button type="button" data-sec="Opinión">Opinión</button>
+        <button type="button" data-sec="Saber y Descubrir">Saber y Descubrir</button>
+        <button type="button" data-sec="Rincón Literario">Rincón Literario</button>
+        <button type="button" data-sec="Voces del Club">Voces del Club</button>
+      </div>
+      <div class="cards" id="listaTextos" aria-live="polite">
+        <p class="empty">Cargando textos…</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="reader" id="lector" hidden role="dialog" aria-modal="true" aria-labelledby="lectorTitulo">
+    <div class="reader-bar">
+      <div class="wrap reader-bar-in">
+        <span class="eyebrow" id="lectorSeccion"></span>
+        <button type="button" class="btn ghost" id="lectorCerrar">Cerrar</button>
+      </div>
+    </div>
+    <article class="wrap reader-body">
+      <p class="eyebrow" id="lectorGenero"></p>
+      <h1 id="lectorTitulo"></h1>
+      <p class="reader-dek" id="lectorBajada"></p>
+      <p class="reader-by" id="lectorAutor"></p>
+      <img id="lectorImagen" alt="" hidden>
+      <div class="reader-text" id="lectorTexto"></div>
+    </article>
+  </div>
 
   <section class="block" id="numero-1">
     <div class="wrap">
@@ -675,6 +759,112 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
   }
   $("tabPost").addEventListener("click", () => tab("post"));
   $("tabTex").addEventListener("click", () => tab("tex"));
+
+
+  // ===== Textos publicados: se leen de la carpeta "textos" del repositorio =====
+  // Cada archivo .md de esa carpeta es un texto. Los que empiezan por "_" (como _plantilla.md) no se muestran.
+  const REPO_RESPALDO = { owner: "emvasquez28-oss", repo: "tinta-joven", branch: "main" };
+  let TEXTOS = [], filtro = "";
+  function repoActual() {
+    const h = location.hostname, m = h.match(/^([^.]+)\.github\.io$/i);
+    if (m) { const seg = location.pathname.split("/").filter(Boolean)[0]; if (seg) return { owner: m[1], repo: seg }; }
+    return REPO_RESPALDO;
+  }
+  function parseMd(raw, nombre) {
+    raw = raw.replace(/^﻿/, "").replace(/\r\n?/g, "\n");
+    const meta = {}; let body = raw;
+    const fm = raw.match(/^---\n([\s\S]*?)\n---\n?/);
+    if (fm) {
+      fm[1].split("\n").forEach(l => { const i = l.indexOf(":"); if (i > 0) meta[l.slice(0, i).trim().toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "")] = l.slice(i + 1).trim().replace(/^["']|["']$/g, ""); });
+      body = raw.slice(fm[0].length);
+    }
+    const slug = nombre.replace(/\.md$/i, "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    return { slug, titulo: meta.titulo || nombre.replace(/\.md$/i, ""), autor: meta.autor || "", grado: meta.grado || "", seccion: meta.seccion || "", genero: meta.genero || "", fecha: meta.fecha || "", bajada: meta.bajada || "", imagen: meta.imagen || "", body };
+  }
+  const esc = t => t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  function inline(t) {
+    return esc(t)
+      .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+      .replace(/(^|[^*])\*(?!\s)(.+?)\*/g, "$1<em>$2</em>")
+      .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+  }
+  function renderMd(md) {
+    return md.trim().split(/\n\s*\n/).map(b => {
+      const lines = b.split("\n");
+      if (/^#{1,6}\s/.test(b)) return "<h3>" + inline(b.replace(/^#{1,6}\s*/, "")) + "</h3>";
+      if (lines.every(l => /^>\s?/.test(l))) return "<blockquote>" + lines.map(l => inline(l.replace(/^>\s?/, ""))).join("<br>") + "</blockquote>";
+      if (lines.every(l => /^[-*]\s/.test(l))) return "<ul>" + lines.map(l => "<li>" + inline(l.replace(/^[-*]\s/, "")) + "</li>").join("") + "</ul>";
+      return "<p>" + lines.map(inline).join("<br>") + "</p>";
+    }).join("");
+  }
+  function fechaLarga(f) {
+    const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(f || ""); if (!m) return f || "";
+    const meses = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+    return Number(m[3]) + " de " + meses.at(Number(m[2]) - 1) + " de " + m[1];
+  }
+  function pintarTextos() {
+    const box = $("listaTextos"); box.innerHTML = "";
+    const lista = TEXTOS.filter(t => !filtro || t.seccion === filtro);
+    if (!lista.length) {
+      const p = document.createElement("p"); p.className = "empty";
+      p.textContent = TEXTOS.length ? "Todavía no hay textos en esta sección." : "Pronto publicaremos los primeros textos del club. Vuelve en unos días.";
+      box.appendChild(p); return;
+    }
+    lista.forEach(t => {
+      const a = document.createElement("a"); a.className = "card"; a.href = "#leer-" + t.slug;
+      if (t.imagen) { const im = document.createElement("img"); im.src = t.imagen; im.alt = ""; im.loading = "lazy"; im.onerror = () => im.remove(); a.appendChild(im); }
+      const d = document.createElement("div"); d.className = "in";
+      const s = document.createElement("span"); s.className = "kicker"; s.textContent = [t.seccion, t.genero].filter(Boolean).join(" · ");
+      const h = document.createElement("h3"); h.textContent = t.titulo;
+      d.append(s, h);
+      if (t.bajada) { const p = document.createElement("p"); p.textContent = t.bajada; d.appendChild(p); }
+      const by = document.createElement("span"); by.className = "by"; by.textContent = [t.autor, t.grado, fechaLarga(t.fecha)].filter(Boolean).join(" · ");
+      d.appendChild(by); a.appendChild(d); box.appendChild(a);
+    });
+  }
+  function abrirLector() {
+    const m = /^#leer-(.+)$/.exec(location.hash), t = m && TEXTOS.find(x => x.slug === m[1]);
+    if (!t) { $("lector").hidden = true; document.body.classList.remove("leyendo"); return; }
+    $("lectorSeccion").textContent = t.seccion || "Tinta Joven";
+    $("lectorGenero").textContent = t.genero;
+    $("lectorTitulo").textContent = t.titulo;
+    $("lectorBajada").textContent = t.bajada; $("lectorBajada").hidden = !t.bajada;
+    $("lectorAutor").textContent = ["Por " + (t.autor || "el Club de Escritura"), t.grado, fechaLarga(t.fecha)].filter(Boolean).join(" · ");
+    const im = $("lectorImagen"); if (t.imagen) { im.onerror = () => { im.hidden = true; }; im.src = t.imagen; im.hidden = false; } else { im.hidden = true; im.removeAttribute("src"); }
+    $("lectorTexto").innerHTML = renderMd(t.body);
+    $("lector").hidden = false; $("lector").scrollTop = 0; document.body.classList.add("leyendo");
+    $("lectorCerrar").focus();
+  }
+  $("lectorCerrar").addEventListener("click", () => { history.pushState(null, "", "#textos"); abrirLector(); $("textos").scrollIntoView(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("lector").hidden) $("lectorCerrar").click(); });
+  window.addEventListener("hashchange", abrirLector);
+  $("filtros").addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    filtro = b.dataset.sec; [...$("filtros").children].forEach(x => x.classList.toggle("on", x === b)); pintarTextos();
+  });
+  async function listarArchivos() {
+    const CLAVE = "tj-lista-textos";
+    try { const c = JSON.parse(sessionStorage.getItem(CLAVE) || "null"); if (c && Date.now() - c.t < 5 * 60 * 1000) return c.n; } catch (e) {}
+    const r = repoActual();
+    const res = await fetch("https://api.github.com/repos/" + r.owner + "/" + r.repo + "/contents/textos" + (r.branch ? "?ref=" + r.branch : ""), { headers: { Accept: "application/vnd.github+json" } });
+    if (!res.ok) throw new Error("lista " + res.status);
+    const nombres = (await res.json()).filter(f => f.type === "file" && /\.md$/i.test(f.name) && !f.name.startsWith("_")).map(f => f.name);
+    try { sessionStorage.setItem(CLAVE, JSON.stringify({ t: Date.now(), n: nombres })); } catch (e) {}
+    return nombres;
+  }
+  async function cargarTextos() {
+    try {
+      const nombres = await listarArchivos();
+      const textos = await Promise.all(nombres.map(async n => {
+        try { const r = await fetch("textos/" + encodeURIComponent(n), { cache: "no-cache" }); return r.ok ? parseMd(await r.text(), n) : null; } catch (e) { return null; }
+      }));
+      TEXTOS = textos.filter(Boolean).sort((a, b) => (b.fecha || "").localeCompare(a.fecha || ""));
+      pintarTextos(); abrirLector();
+    } catch (e) {
+      $("listaTextos").innerHTML = '<p class="empty">No pudimos cargar los textos en este momento. Recarga la página en unos minutos.</p>';
+    }
+  }
+  cargarTextos();
 
   async function start() {
     if (!window.claude || !window.claude.use) return;
