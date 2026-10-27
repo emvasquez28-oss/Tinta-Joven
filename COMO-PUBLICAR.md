@@ -1,6 +1,6 @@
 # Cómo publicar un texto en Tinta Joven
 
-Cada texto de la revista es un archivo dentro de la carpeta [`textos`](textos). La página lo muestra solo en la sección "Lee a nuestros escritores", uno o dos minutos después de subirlo.
+Cada texto de la revista es un archivo dentro de la carpeta [`textos`](textos). La página lo muestra sola en su sección (Periodismo o Literario), uno o dos minutos después de subirlo. Si olvidas la sección, la página la deduce del género.
 
 ## Publicar un texto nuevo
 
@@ -19,8 +19,8 @@ También puedes escribir el archivo en tu computador y subirlo con **Add file �
 | `titulo` | El título, máximo 12 palabras |
 | `autor` | Nombre del estudiante |
 | `grado` | Grado y curso, por ejemplo `9.º B` |
-| `seccion` | Una de estas, escrita igual: `Actualidad Escolar`, `Opinión`, `Saber y Descubrir`, `Rincón Literario`, `Voces del Club` |
-| `genero` | Noticia, Reportaje, Entrevista, Columna, Reseña, Cuento, Poesía… |
+| `seccion` | `Periodismo` o `Literario` |
+| `genero` | En Periodismo: `Noticia`, `Crónica`, `Artículo`, `Reportaje`, `Caricatura`, `Entrevista` o `Reseña`. En Literario: `Cuento`, `Poesía`, `Minirrelato`, `Cine` o `Música` |
 | `fecha` | Fecha de publicación como `2026-11-20` (año-mes-día). Los textos más recientes salen primero |
 | `bajada` | Una o dos frases de resumen |
 | `imagen` | Opcional. La ruta de una foto subida a la carpeta `imagenes`, por ejemplo `imagenes/feria.jpg`. Si no hay foto, borra esa línea |
@@ -32,6 +32,10 @@ También puedes escribir el archivo en tu computador y subirlo con **Add file �
 3. En el texto, escribe `imagen: imagenes/feria-de-ciencias.jpg`.
 
 Usa fotos propias o con permiso, y no muestres la cara de estudiantes sin autorización de su familia.
+
+## Caricaturas
+
+Sube el dibujo a la carpeta `imagenes`, escribe su ruta en `imagen:` y usa `genero: Caricatura`. Debajo de las líneas `---` basta con una frase o el texto de la viñeta.
 
 ## Corregir o quitar un texto
 

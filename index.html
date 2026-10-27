@@ -26,6 +26,9 @@
   --cobalt-tint: #e6eafb;
   --margin-red: #d8434b;
   --marker: #ffd54a;
+  --lit: #b0283b;
+  --lit-tint: #fbecee;
+  --on-accent: #ffffff;
   --ok: #1f7a4d;
   --ok-tint: #e3f3ea;
   --warn: #9a5b00;
@@ -39,12 +42,14 @@
     --paper: #10142a; --sheet: #171c36; --ink: #eef0fa; --ink-soft: #a9afcc; --rule: #262c4c; --rule-strong: #3a4268;
     --cobalt: #8fa2ff; --cobalt-tint: #222b58; --margin-red: #f0727a; --marker: #6a5714;
     --ok: #6fd3a0; --ok-tint: #173a2c; --warn: #f2bd6a; --warn-tint: #3a2c14; color-scheme: dark;
+    --lit: #ff8f9d; --lit-tint: #2a1726; --on-accent: #10142a;
   }
 }
 :root[data-theme="dark"] {
   --paper: #10142a; --sheet: #171c36; --ink: #eef0fa; --ink-soft: #a9afcc; --rule: #262c4c; --rule-strong: #3a4268;
   --cobalt: #8fa2ff; --cobalt-tint: #222b58; --margin-red: #f0727a; --marker: #6a5714;
   --ok: #6fd3a0; --ok-tint: #173a2c; --warn: #f2bd6a; --warn-tint: #3a2c14; color-scheme: dark;
+  --lit: #ff8f9d; --lit-tint: #2a1726; --on-accent: #10142a;
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -193,6 +198,38 @@ fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
 .pill.devuelto { background: var(--paper); color: var(--margin-red); border: 1px solid var(--margin-red); }
 .empty { color: var(--ink-soft); font-size: 15px; padding: 20px; border: 1px dashed var(--rule-strong); border-radius: 6px; }
 
+/* Las dos secciones */
+.doors { border-bottom: 1px solid var(--rule); background: var(--sheet); }
+.doors-in { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; padding-block: 24px; }
+.door { display: grid; gap: 8px; align-content: start; padding: 26px 28px; border-radius: 8px; text-decoration: none; color: var(--on-accent); transition: transform .15s; }
+.door:hover { transform: translateY(-2px); }
+.door-per { background: var(--cobalt); }
+.door-lit { background: var(--lit); }
+.door-num { font-family: var(--mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; opacity: .85; }
+.door-title { font-family: var(--display); font-weight: 800; font-size: clamp(36px, 5vw, 56px); line-height: 1; letter-spacing: -0.02em; }
+.door-lit .door-title { font-family: "Source Serif 4", Georgia, serif; font-style: italic; font-weight: 600; }
+.door-text { font-size: 17px; }
+.door-tags { font-family: var(--mono); font-size: 12px; opacity: .9; line-height: 1.6; }
+.area-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 40px; margin-bottom: 28px; align-items: start; }
+.area-head h2 { font-size: clamp(40px, 6vw, 68px); margin-top: 6px; }
+.area-head p { color: var(--ink-soft); margin-top: 12px; max-width: 46ch; }
+.area-per h2 { color: var(--cobalt); }
+.area-lit { background: var(--lit-tint); }
+.area-lit h2 { color: var(--lit); font-family: "Source Serif 4", Georgia, serif; font-style: italic; font-weight: 600; letter-spacing: -0.01em; }
+.genres { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 0 24px; border-top: 2px solid var(--ink); }
+.genres li { display: grid; gap: 2px; padding: 10px 0; border-bottom: 1px solid var(--rule); font-size: 15px; }
+.genres b { font-family: var(--display); font-size: 16px; }
+.genres span { color: var(--ink-soft); }
+.area-lit .genres { border-top-color: var(--lit); }
+.area-lit .filters button.on { background: var(--lit); border-color: var(--lit); color: var(--on-accent); }
+.area-lit .card:hover { border-color: var(--lit); }
+.area-lit .card .kicker { color: var(--lit); }
+.card-cartoon img { aspect-ratio: 4 / 3; object-fit: contain; background: #fff; }
+.reader[data-area="Literario"] .reader-text { font-size: 20px; }
+.reader[data-area="Literario"] #lectorSeccion { color: var(--lit); }
+.toc-h { font-family: var(--display); font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--cobalt); margin: 0 0 6px; }
+.toc-h.lit { color: var(--lit); margin-top: 28px; }
+
 /* Textos publicados */
 .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
 .filters button { font-family: var(--display); font-weight: 500; font-size: 14px; border: 1px solid var(--rule-strong); background: var(--sheet); color: var(--ink); border-radius: 999px; padding: 7px 14px; cursor: pointer; }
@@ -225,6 +262,9 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
 
 @media (max-width: 760px) {
   .hero-inner { grid-template-columns: minmax(0, 1fr); padding-left: 48px; gap: 28px; }
+  .doors-in, .area-head { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .area .genres { display: none; }
+  .door { padding: 20px; }
   .sumario, .form-grid { grid-template-columns: minmax(0, 1fr); gap: 28px; }
   form.card { padding: 20px; }
   section.block { padding-block: 52px; }
@@ -238,9 +278,9 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
   <div class="wrap">
     <a class="brand" href="#inicio"><img class="logo" src="imagenes/escudo.png" alt="Escudo de la I.E. El Recuerdo" width="44" height="44"><span class="brand-name">Tinta Joven <small>I.E. El Recuerdo · Club de Escritura</small></span></a>
     <nav class="main" aria-label="Secciones del sitio">
-      <a href="#textos">Leer</a>
+      <a href="#periodismo">Periodismo</a>
+      <a href="#literario">Literario</a>
       <a href="#numero-1">Número 1</a>
-      <a href="#secciones">Secciones</a>
       <a href="#club">El club</a>
       <a href="#unete">Únete</a>
       <a href="#enviar">Envía tu texto</a>
@@ -256,7 +296,7 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
         <div>
           <p class="eyebrow">Revista digital del Club de Escritura Escolar</p>
           <h1>Tinta <em>Joven</em></h1>
-          <p class="lede">Noticias, reportajes, cuentos y poemas escritos por los estudiantes de nuestra escuela. <span class="mark">Buscamos a los mejores escritores</span> para el primer número.</p>
+          <p class="lede">Periodismo y literatura escritos por los estudiantes de la I.E. El Recuerdo. <span class="mark">Buscamos a los mejores escritores</span> para el primer número.</p>
           <div class="ctas">
             <a class="btn primary" href="#unete">Quiero entrar al club</a>
             <a class="btn ghost" href="#enviar">Enviar un texto</a>
@@ -270,7 +310,7 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
           <aside class="issue-card" aria-label="Estado del primer número">
             <div class="num">01</div>
             <div>
-              <p><b>Nuestra escuela, nuestras voces.</b> 12 textos en 5 secciones, de periodismo a poesía.</p>
+              <p><b>Nuestra escuela, nuestras voces.</b> 12 textos de periodismo y literatura.</p>
               <span class="status">Número 1 en preparación</span>
             </div>
           </aside>
@@ -279,24 +319,80 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
     </div>
   </section>
 
-  <section class="block" id="textos">
+  <section class="doors" aria-label="Secciones de la revista">
+    <div class="wrap doors-in">
+      <a class="door door-per" href="#periodismo">
+        <span class="door-num">Sección 1</span>
+        <span class="door-title">Periodismo</span>
+        <span class="door-text">Lo que pasa en la escuela y el barrio, contado con rigor.</span>
+        <span class="door-tags">Noticias · Crónicas · Artículos · Reportajes · Caricaturas · Entrevistas · Reseñas</span>
+      </a>
+      <a class="door door-lit" href="#literario">
+        <span class="door-num">Sección 2</span>
+        <span class="door-title">Literario</span>
+        <span class="door-text">Creación propia y miradas sobre el arte.</span>
+        <span class="door-tags">Cuento · Poesía · Minirrelatos · Cine · Música</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="block area area-per" id="periodismo" data-area="Periodismo">
     <div class="wrap">
-      <div class="head">
-        <p class="eyebrow">Textos publicados</p>
-        <h2>Lee a nuestros escritores</h2>
-        <p>Noticias, opiniones, artículos y literatura de los estudiantes del club. Elige una sección o lee todo.</p>
+      <div class="area-head">
+        <div>
+          <p class="eyebrow">Sección 1</p>
+          <h2>Periodismo</h2>
+          <p>Noticias, crónicas, artículos, reportajes, caricaturas, entrevistas y reseñas. Todo texto periodístico parte de hechos verificados y fuentes reales.</p>
+        </div>
+        <ul class="genres">
+            <li><b>Noticias</b><span>Lo que pasó, contado con datos y fuentes.</span></li>
+            <li><b>Crónicas</b><span>Un hecho narrado con detalle y mirada propia.</span></li>
+            <li><b>Artículos</b><span>Un tema explicado para cualquier lector.</span></li>
+            <li><b>Reportajes</b><span>Una historia investigada a fondo.</span></li>
+            <li><b>Caricaturas</b><span>Humor gráfico sobre la vida escolar.</span></li>
+            <li><b>Entrevistas</b><span>Preguntas y respuestas con personas de la comunidad.</span></li>
+            <li><b>Reseñas</b><span>Libros, series y obras que vale la pena conocer.</span></li>
+        </ul>
       </div>
-      <div class="filters" id="filtros" role="group" aria-label="Filtrar por sección">
-        <button type="button" class="on" data-sec="">Todo</button>
-        <button type="button" data-sec="Actualidad Escolar">Actualidad Escolar</button>
-        <button type="button" data-sec="Opinión">Opinión</button>
-        <button type="button" data-sec="Saber y Descubrir">Saber y Descubrir</button>
-        <button type="button" data-sec="Rincón Literario">Rincón Literario</button>
-        <button type="button" data-sec="Voces del Club">Voces del Club</button>
+      <div class="filters" role="group" aria-label="Filtrar Periodismo por género">
+        <button type="button" class="on" data-gen="">Todo</button>
+        <button type="button" data-gen="Noticias">Noticias</button>
+        <button type="button" data-gen="Crónicas">Crónicas</button>
+        <button type="button" data-gen="Artículos">Artículos</button>
+        <button type="button" data-gen="Reportajes">Reportajes</button>
+        <button type="button" data-gen="Caricaturas">Caricaturas</button>
+        <button type="button" data-gen="Entrevistas">Entrevistas</button>
+        <button type="button" data-gen="Reseñas">Reseñas</button>
       </div>
-      <div class="cards" id="listaTextos" aria-live="polite">
-        <p class="empty">Cargando textos…</p>
+      <div class="cards" id="listaPeriodismo" aria-live="polite"><p class="empty">Cargando textos…</p></div>
+    </div>
+  </section>
+
+  <section class="block area area-lit" id="literario" data-area="Literario">
+    <div class="wrap">
+      <div class="area-head">
+        <div>
+          <p class="eyebrow">Sección 2</p>
+          <h2>Literario</h2>
+          <p>Cuentos, poemas y minirrelatos de nuestros autores, y textos sobre el cine y la música que nos inspiran.</p>
+        </div>
+        <ul class="genres">
+            <li><b>Cuento</b><span>Historias inventadas con principio, nudo y final.</span></li>
+            <li><b>Poesía</b><span>Versos sobre lo que vemos y sentimos.</span></li>
+            <li><b>Minirrelatos</b><span>Historias completas en menos de 150 palabras.</span></li>
+            <li><b>Cine</b><span>Películas comentadas por estudiantes.</span></li>
+            <li><b>Música</b><span>Canciones, artistas y sonidos que nos mueven.</span></li>
+        </ul>
       </div>
+      <div class="filters" role="group" aria-label="Filtrar Literario por género">
+        <button type="button" class="on" data-gen="">Todo</button>
+        <button type="button" data-gen="Cuento">Cuento</button>
+        <button type="button" data-gen="Poesía">Poesía</button>
+        <button type="button" data-gen="Minirrelatos">Minirrelatos</button>
+        <button type="button" data-gen="Cine">Cine</button>
+        <button type="button" data-gen="Música">Música</button>
+      </div>
+      <div class="cards" id="listaLiterario" aria-live="polite"><p class="empty">Cargando textos…</p></div>
     </div>
   </section>
 
@@ -326,38 +422,26 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
           <p>Un número abierto para presentar al club y a sus autores. Los títulos son ideas de arranque: el consejo editorial los ajusta y asigna un autor a cada texto.</p>
           <p style="margin-top:14px">¿Te ves escribiendo una de estas páginas? <a href="#unete">Postúlate al club</a>.</p>
         </div>
-        <ol class="toc">
-          <li><span class="pg">p. 2</span><span class="t">Por qué nace este club</span><span class="g">Editorial</span></li>
-          <li><span class="pg">p. 3</span><span class="t">Conoce a los autores de este número</span><span class="g">Galería</span></li>
-          <li><span class="pg">p. 4</span><span class="t">Lo más importante que pasó este trimestre en la escuela</span><span class="g">Noticia</span></li>
-          <li><span class="pg">p. 6</span><span class="t">Un problema o un logro del colegio contado a fondo</span><span class="g">Reportaje</span></li>
-          <li><span class="pg">p. 9</span><span class="t">La persona con más años en la escuela</span><span class="g">Entrevista</span></li>
-          <li><span class="pg">p. 11</span><span class="t">Un tema de ciencia o del entorno explicado para todos</span><span class="g">Divulgación</span></li>
-          <li><span class="pg">p. 13</span><span class="t">Cómo estudiar mejor para los exámenes</span><span class="g">Guía</span></li>
-          <li><span class="pg">p. 14</span><span class="t">El libro o la película que todos deberían conocer</span><span class="g">Reseña</span></li>
-          <li><span class="pg">p. 15</span><span class="t">Cuento ganador de la convocatoria</span><span class="g">Cuento</span></li>
-          <li><span class="pg">p. 19</span><span class="t">Tres poemas sobre la escuela</span><span class="g">Poesía</span></li>
-          <li><span class="pg">p. 21</span><span class="t">Historias en 100 palabras</span><span class="g">Microrrelatos</span></li>
-          <li><span class="pg">p. 22</span><span class="t">Un cuento o diario de otro autor</span><span class="g">Cuento o diario</span></li>
-          <li><span class="pg">p. 24</span><span class="t">Convocatoria para el número 2</span><span class="g">Convocatoria</span></li>
-        </ol>
-      </div>
-    </div>
-  </section>
-
-  <section class="block" id="secciones">
-    <div class="wrap">
-      <div class="head">
-        <p class="eyebrow">Secciones de la revista</p>
-        <h2>Cinco secciones para todo tipo de escritor</h2>
-        <p>Periodismo, textos informativos y literatura. Cada sección tiene sus géneros y su extensión.</p>
-      </div>
-      <div class="sections">
-        <div class="sec"><span class="tag">Periodismo</span><h3>Actualidad Escolar</h3><p>Lo que pasa en la escuela y el barrio, contado con fuentes: noticia, reportaje, entrevista y crónica.</p><span class="meta">300 a 900 palabras</span></div>
-        <div class="sec"><span class="tag">Opinión</span><h3>Opinión</h3><p>Puntos de vista con argumentos: editorial, columna y reseña de libros o películas.</p><span class="meta">300 a 600 palabras</span></div>
-        <div class="sec"><span class="tag">Informativo</span><h3>Saber y Descubrir</h3><p>Un tema explicado con datos claros: artículo de divulgación, guía práctica e infografía.</p><span class="meta">400 a 800 palabras</span></div>
-        <div class="sec"><span class="tag">Literatura</span><h3>Rincón Literario</h3><p>Creación propia: cuento, poesía, microrrelato y fragmentos de diario.</p><span class="meta">Cuento hasta 1.500 palabras · poema hasta 40 versos</span></div>
-        <div class="sec"><span class="tag">Comunidad</span><h3>Voces del Club</h3><p>Personas y talentos de la escuela: perfiles, galería de autores y convocatorias.</p><span class="meta">300 a 600 palabras</span></div>
+        <div class="toc-wrap">
+          <h4 class="toc-h">Periodismo</h4>
+          <ol class="toc">
+            <li><span class="pg">p. 2</span><span class="t">Lo más importante que pasó este trimestre en la escuela</span><span class="g">Noticia</span></li>
+            <li><span class="pg">p. 4</span><span class="t">Un día cualquiera en El Recuerdo</span><span class="g">Crónica</span></li>
+            <li><span class="pg">p. 6</span><span class="t">Un problema o un logro del colegio contado a fondo</span><span class="g">Reportaje</span></li>
+            <li><span class="pg">p. 9</span><span class="t">La persona con más años en la escuela</span><span class="g">Entrevista</span></li>
+            <li><span class="pg">p. 11</span><span class="t">Un tema de ciencia o del entorno explicado para todos</span><span class="g">Artículo</span></li>
+            <li><span class="pg">p. 13</span><span class="t">La vida escolar en viñetas</span><span class="g">Caricatura</span></li>
+            <li><span class="pg">p. 14</span><span class="t">El libro que todos deberían conocer</span><span class="g">Reseña</span></li>
+          </ol>
+          <h4 class="toc-h lit">Literario</h4>
+          <ol class="toc">
+            <li><span class="pg">p. 15</span><span class="t">Cuento ganador de la convocatoria</span><span class="g">Cuento</span></li>
+            <li><span class="pg">p. 19</span><span class="t">Tres poemas sobre la escuela</span><span class="g">Poesía</span></li>
+            <li><span class="pg">p. 21</span><span class="t">Historias en menos de 150 palabras</span><span class="g">Minirrelatos</span></li>
+            <li><span class="pg">p. 22</span><span class="t">La película que nos hizo pensar</span><span class="g">Cine</span></li>
+            <li><span class="pg">p. 23</span><span class="t">La canción que suena en el patio</span><span class="g">Música</span></li>
+          </ol>
+        </div>
       </div>
     </div>
   </section>
@@ -411,12 +495,13 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
         <fieldset class="field">
           <legend>¿Qué te gusta escribir?</legend>
           <div class="checks" id="u_generos">
-            <label class="chip"><input type="checkbox" value="Noticias y reportajes"> Noticias y reportajes</label>
-            <label class="chip"><input type="checkbox" value="Opinión y reseñas"> Opinión y reseñas</label>
-            <label class="chip"><input type="checkbox" value="Divulgación"> Divulgación</label>
-            <label class="chip"><input type="checkbox" value="Cuento"> Cuento</label>
+            <label class="chip"><input type="checkbox" value="Noticias y crónicas"> Noticias y crónicas</label>
+            <label class="chip"><input type="checkbox" value="Reportajes y entrevistas"> Reportajes y entrevistas</label>
+            <label class="chip"><input type="checkbox" value="Artículos y reseñas"> Artículos y reseñas</label>
+            <label class="chip"><input type="checkbox" value="Caricatura"> Caricatura</label>
+            <label class="chip"><input type="checkbox" value="Cuento y minirrelatos"> Cuento y minirrelatos</label>
             <label class="chip"><input type="checkbox" value="Poesía"> Poesía</label>
-            <label class="chip"><input type="checkbox" value="Diseño o fotografía"> Diseño o fotografía</label>
+            <label class="chip"><input type="checkbox" value="Cine y música"> Cine y música</label>
           </div>
         </fieldset>
         <div class="field"><label for="u_porque">¿Por qué quieres entrar al club?</label><textarea id="u_porque" placeholder="Cuéntanos en pocas líneas" required></textarea></div>
@@ -459,11 +544,8 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
         <div class="row2">
           <div class="field"><label for="t_seccion">Sección</label>
             <select id="t_seccion" required>
-              <option value="Actualidad Escolar">Actualidad Escolar</option>
-              <option value="Opinión">Opinión</option>
-              <option value="Saber y Descubrir">Saber y Descubrir</option>
-              <option value="Rincón Literario">Rincón Literario</option>
-              <option value="Voces del Club">Voces del Club</option>
+              <option value="Periodismo">Periodismo</option>
+              <option value="Literario">Literario</option>
             </select>
           </div>
           <div class="field"><label for="t_genero">Género</label><select id="t_genero" required></select></div>
@@ -540,16 +622,29 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
   // Enlaces a los formularios del club (por ejemplo, Google Forms). Déjalos vacíos para pedir que entreguen el texto al docente.
   const FORM_UNETE = "";
   const FORM_TEXTO = "";
+  // Géneros de cada sección y extensión sugerida en palabras [mínimo, máximo]
   const GENEROS = {
-    "Actualidad Escolar": ["Noticia", "Reportaje", "Entrevista", "Crónica"],
-    "Opinión": ["Editorial", "Columna", "Reseña"],
-    "Saber y Descubrir": ["Artículo de divulgación", "Guía práctica", "Infografía"],
-    "Rincón Literario": ["Cuento", "Poesía", "Microrrelato", "Diario"],
-    "Voces del Club": ["Perfil", "Galería de autores", "Convocatoria"]
+    "Periodismo": ["Noticia", "Crónica", "Artículo", "Reportaje", "Caricatura", "Entrevista", "Reseña"],
+    "Literario": ["Cuento", "Poesía", "Minirrelato", "Cine", "Música"]
   };
   const LIMITES = {
-    "Actualidad Escolar": [300, 900], "Opinión": [300, 600], "Saber y Descubrir": [400, 800],
-    "Rincón Literario": [10, 1500], "Voces del Club": [300, 600]
+    "Noticia": [200, 600], "Crónica": [400, 1200], "Artículo": [400, 900], "Reportaje": [600, 1500],
+    "Caricatura": [0, 150], "Entrevista": [400, 1200], "Reseña": [300, 700],
+    "Cuento": [0, 1500], "Poesía": [0, 400], "Minirrelato": [0, 150], "Cine": [300, 800], "Música": [300, 800]
+  };
+  const PISTAS = {
+    "Noticia": "El primer párrafo responde qué, quién, cuándo, dónde y por qué.",
+    "Crónica": "Narra el hecho en orden y con detalles que el lector pueda ver y oír.",
+    "Artículo": "Explica el tema para un lector que no lo conoce. Usa datos con su fuente.",
+    "Reportaje": "Combina datos, varias fuentes y testimonios. Usa subtítulos.",
+    "Caricatura": "Sube el dibujo como imagen y escribe aquí el título y una frase que lo acompañe.",
+    "Entrevista": "Presenta a la persona en un párrafo y luego escribe preguntas y respuestas.",
+    "Reseña": "Cuenta de qué trata sin revelar el final y da tu opinión con argumentos.",
+    "Cuento": "Hasta 1.500 palabras.",
+    "Poesía": "Cada verso en su propia línea y una línea en blanco entre estrofas. Hasta 40 versos.",
+    "Minirrelato": "Una historia completa en menos de 150 palabras.",
+    "Cine": "Presenta la película (título, director, año) y explica qué te hizo sentir o pensar.",
+    "Música": "Presenta la canción o el artista y explica por qué vale la pena escucharlo."
   };
   const ESTADOS = [["recibido", "Recibido"], ["revision", "En revisión"], ["aceptado", "Aceptado"], ["devuelto", "Devuelto al autor"]];
   const $ = id => document.getElementById(id);
@@ -563,21 +658,18 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
     sel.innerHTML = "";
     GENEROS[sec].forEach(g => { const o = document.createElement("option"); o.textContent = g; sel.appendChild(o); });
     if (GENEROS[sec].includes(prev)) sel.value = prev;
-    $("t_hint").textContent = sec === "Rincón Literario"
-      ? "Cuento hasta 1.500 palabras; poema hasta 40 versos."
-      : sec === "Actualidad Escolar"
-        ? "El primer párrafo responde qué, quién, cuándo, dónde y por qué."
-        : "Escribe para un lector que no conoce el tema.";
-    countTexto();
+    pistaGenero();
   }
+  function pistaGenero() { $("t_hint").textContent = PISTAS[$("t_genero").value] || ""; countTexto(); }
+  $("t_genero").addEventListener("change", pistaGenero);
   function setCount(el, n, lo, hi) {
     el.firstElementChild.textContent = n + (n === 1 ? " palabra" : " palabras");
     el.lastElementChild.textContent = sec_label(lo, hi);
-    el.classList.toggle("in", n >= lo && n <= hi);
+    el.classList.toggle("in", n > 0 && n >= lo && n <= hi);
     el.classList.toggle("out", n > hi);
   }
   function sec_label(lo, hi) { return lo <= 10 ? "hasta " + hi.toLocaleString("es") : lo + " a " + hi; }
-  function countTexto() { const [lo, hi] = LIMITES[$("t_seccion").value]; setCount($("t_count"), words($("t_texto").value), lo, hi); }
+  function countTexto() { const [lo, hi] = LIMITES[$("t_genero").value] || [0, 1500]; setCount($("t_count"), words($("t_texto").value), lo, hi); }
   function countMuestra() { setCount($("u_count"), words($("u_muestra").value), 100, 500); }
   $("t_seccion").addEventListener("change", fillGeneros);
   $("t_texto").addEventListener("input", countTexto);
@@ -764,7 +856,22 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
   // ===== Textos publicados: se leen de la carpeta "textos" del repositorio =====
   // Cada archivo .md de esa carpeta es un texto. Los que empiezan por "_" (como _plantilla.md) no se muestran.
   const REPO_RESPALDO = { owner: "emvasquez28-oss", repo: "tinta-joven", branch: "main" };
-  let TEXTOS = [], filtro = "";
+  let TEXTOS = [];
+  const FILTRO = { Periodismo: "", Literario: "" };
+  // Normaliza un género para comparar sin tildes, mayúsculas ni plurales ("Reseñas" = "reseña")
+  const ALIAS = { poema: "poesia", microrelato: "minirelato", minicuento: "minirelato", pelicula: "cine", cancion: "musica" };
+  function claveGenero(g) {
+    let k = (g || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z]/g, "").replace(/rr/g, "r").replace(/s$/, "");
+    return ALIAS[k] || k;
+  }
+  const LITERARIOS = new Set(GENEROS.Literario.map(claveGenero));
+  // Decide la sección de un texto: usa "seccion" del archivo; si falta o es antigua, la deduce del género
+  function areaDe(t) {
+    const s = (t.seccion || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    if (s.includes("literari") || s.includes("rincon")) return "Literario";
+    if (s.includes("periodis")) return "Periodismo";
+    return LITERARIOS.has(claveGenero(t.genero)) ? "Literario" : "Periodismo";
+  }
   function repoActual() {
     const h = location.hostname, m = h.match(/^([^.]+)\.github\.io$/i);
     if (m) { const seg = location.pathname.split("/").filter(Boolean)[0]; if (seg) return { owner: m[1], repo: seg }; }
@@ -803,29 +910,34 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
     return Number(m[3]) + " de " + meses.at(Number(m[2]) - 1) + " de " + m[1];
   }
   function pintarTextos() {
-    const box = $("listaTextos"); box.innerHTML = "";
-    const lista = TEXTOS.filter(t => !filtro || t.seccion === filtro);
-    if (!lista.length) {
-      const p = document.createElement("p"); p.className = "empty";
-      p.textContent = TEXTOS.length ? "Todavía no hay textos en esta sección." : "Pronto publicaremos los primeros textos del club. Vuelve en unos días.";
-      box.appendChild(p); return;
-    }
-    lista.forEach(t => {
-      const a = document.createElement("a"); a.className = "card"; a.href = "#leer-" + t.slug;
-      if (t.imagen) { const im = document.createElement("img"); im.src = t.imagen; im.alt = ""; im.loading = "lazy"; im.onerror = () => im.remove(); a.appendChild(im); }
-      const d = document.createElement("div"); d.className = "in";
-      const s = document.createElement("span"); s.className = "kicker"; s.textContent = [t.seccion, t.genero].filter(Boolean).join(" · ");
-      const h = document.createElement("h3"); h.textContent = t.titulo;
-      d.append(s, h);
-      if (t.bajada) { const p = document.createElement("p"); p.textContent = t.bajada; d.appendChild(p); }
-      const by = document.createElement("span"); by.className = "by"; by.textContent = [t.autor, t.grado, fechaLarga(t.fecha)].filter(Boolean).join(" · ");
-      d.appendChild(by); a.appendChild(d); box.appendChild(a);
+    ["Periodismo", "Literario"].forEach(area => {
+      const box = $("lista" + area); box.innerHTML = "";
+      const f = FILTRO[area];
+      const lista = TEXTOS.filter(t => t.area === area && (!f || claveGenero(t.genero) === claveGenero(f)));
+      if (!lista.length) {
+        const p = document.createElement("p"); p.className = "empty";
+        p.textContent = TEXTOS.some(t => t.area === area)
+          ? "Todavía no hay textos de este género."
+          : "Pronto publicaremos los primeros textos de " + area.toLowerCase() + " del club. Vuelve en unos días.";
+        box.appendChild(p); return;
+      }
+      lista.forEach(t => {
+        const a = document.createElement("a"); a.className = "card" + (claveGenero(t.genero) === "caricatura" ? " card-cartoon" : ""); a.href = "#leer-" + t.slug;
+        if (t.imagen) { const im = document.createElement("img"); im.src = t.imagen; im.alt = ""; im.loading = "lazy"; im.onerror = () => im.remove(); a.appendChild(im); }
+        const d = document.createElement("div"); d.className = "in";
+        const s = document.createElement("span"); s.className = "kicker"; s.textContent = t.genero || area;
+        const h = document.createElement("h3"); h.textContent = t.titulo;
+        d.append(s, h);
+        if (t.bajada) { const p = document.createElement("p"); p.textContent = t.bajada; d.appendChild(p); }
+        const by = document.createElement("span"); by.className = "by"; by.textContent = [t.autor, t.grado, fechaLarga(t.fecha)].filter(Boolean).join(" · ");
+        d.appendChild(by); a.appendChild(d); box.appendChild(a);
+      });
     });
   }
   function abrirLector() {
     const m = /^#leer-(.+)$/.exec(location.hash), t = m && TEXTOS.find(x => x.slug === m[1]);
     if (!t) { $("lector").hidden = true; document.body.classList.remove("leyendo"); return; }
-    $("lectorSeccion").textContent = t.seccion || "Tinta Joven";
+    $("lectorSeccion").textContent = t.area; $("lector").dataset.area = t.area;
     $("lectorGenero").textContent = t.genero;
     $("lectorTitulo").textContent = t.titulo;
     $("lectorBajada").textContent = t.bajada; $("lectorBajada").hidden = !t.bajada;
@@ -835,13 +947,14 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
     $("lector").hidden = false; $("lector").scrollTop = 0; document.body.classList.add("leyendo");
     $("lectorCerrar").focus();
   }
-  $("lectorCerrar").addEventListener("click", () => { history.pushState(null, "", "#textos"); abrirLector(); $("textos").scrollIntoView(); });
+  $("lectorCerrar").addEventListener("click", () => { const area = ($("lector").dataset.area || "Periodismo").toLowerCase(); history.pushState(null, "", "#" + area); abrirLector(); $(area).scrollIntoView(); });
   document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("lector").hidden) $("lectorCerrar").click(); });
   window.addEventListener("hashchange", abrirLector);
-  $("filtros").addEventListener("click", e => {
+  document.querySelectorAll(".area .filters").forEach(bar => bar.addEventListener("click", e => {
     const b = e.target.closest("button"); if (!b) return;
-    filtro = b.dataset.sec; [...$("filtros").children].forEach(x => x.classList.toggle("on", x === b)); pintarTextos();
-  });
+    const area = bar.closest(".area").dataset.area;
+    FILTRO[area] = b.dataset.gen; [...bar.children].forEach(x => x.classList.toggle("on", x === b)); pintarTextos();
+  }));
   async function listarArchivos() {
     const CLAVE = "tj-lista-textos";
     try { const c = JSON.parse(sessionStorage.getItem(CLAVE) || "null"); if (c && Date.now() - c.t < 5 * 60 * 1000) return c.n; } catch (e) {}
@@ -858,10 +971,10 @@ footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wr
       const textos = await Promise.all(nombres.map(async n => {
         try { const r = await fetch("textos/" + encodeURIComponent(n), { cache: "no-cache" }); return r.ok ? parseMd(await r.text(), n) : null; } catch (e) { return null; }
       }));
-      TEXTOS = textos.filter(Boolean).sort((a, b) => (b.fecha || "").localeCompare(a.fecha || ""));
+      TEXTOS = textos.filter(Boolean).map(t => Object.assign(t, { area: areaDe(t) })).sort((a, b) => (b.fecha || "").localeCompare(a.fecha || ""));
       pintarTextos(); abrirLector();
     } catch (e) {
-      $("listaTextos").innerHTML = '<p class="empty">No pudimos cargar los textos en este momento. Recarga la página en unos minutos.</p>';
+      ["Periodismo", "Literario"].forEach(a => { $("lista" + a).innerHTML = '<p class="empty">No pudimos cargar los textos en este momento. Recarga la página en unos minutos.</p>'; });
     }
   }
   cargarTextos();

@@ -2,7 +2,7 @@
 titulo: Escribe aquí el título (máximo 12 palabras)
 autor: Nombre y apellido del autor
 grado: 9.º B
-seccion: Rincón Literario
+seccion: Literario
 genero: Cuento
 fecha: 2026-11-20
 bajada: Una o dos frases que inviten a leer el texto.
