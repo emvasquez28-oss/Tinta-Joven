@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Tinta Joven, la revista digital del Club de Escritura Escolar: noticias, reportajes, cuentos y poemas escritos por estudiantes.">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Tinta Joven</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a school notebook. Ruled paper with a red margin line frames the hero; content sits in a single
+   reading column with wide index-like tables; the magazine contents read like a printed sumario. */
+:root {
+  --paper: #f6f7fb;
+  --sheet: #ffffff;
+  --ink: #161b33;
+  --ink-soft: #4a5070;
+  --rule: #d9deec;
+  --rule-strong: #b9c1da;
+  --cobalt: #2a44c9;
+  --cobalt-tint: #e6eafb;
+  --margin-red: #d8434b;
+  --marker: #ffd54a;
+  --ok: #1f7a4d;
+  --ok-tint: #e3f3ea;
+  --warn: #9a5b00;
+  --warn-tint: #fdf1dc;
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #10142a; --sheet: #171c36; --ink: #eef0fa; --ink-soft: #a9afcc; --rule: #262c4c; --rule-strong: #3a4268;
+    --cobalt: #8fa2ff; --cobalt-tint: #222b58; --margin-red: #f0727a; --marker: #6a5714;
+    --ok: #6fd3a0; --ok-tint: #173a2c; --warn: #f2bd6a; --warn-tint: #3a2c14; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #10142a; --sheet: #171c36; --ink: #eef0fa; --ink-soft: #a9afcc; --rule: #262c4c; --rule-strong: #3a4268;
+  --cobalt: #8fa2ff; --cobalt-tint: #222b58; --margin-red: #f0727a; --marker: #6a5714;
+  --ok: #6fd3a0; --ok-tint: #173a2c; --warn: #f2bd6a; --warn-tint: #3a2c14; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+body { background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.6; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--sheet); }
+.wrap { max-width: 1080px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { font-family: var(--display); line-height: 1.1; text-wrap: balance; margin: 0; }
+h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 800; letter-spacing: -0.01em; }
+h3 { font-size: 21px; font-weight: 700; }
+p { margin: 0; }
+a { color: var(--cobalt); }
+:focus-visible { outline: 3px solid var(--cobalt); outline-offset: 2px; border-radius: 4px; }
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); }
+.mark { background: linear-gradient(transparent 58%, var(--marker) 58%, var(--marker) 92%, transparent 92%); padding: 0 2px; }
+
+/* Header */
+header.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--sheet); border-bottom: 1px solid var(--rule); }
+header.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 12px; flex-wrap: wrap; }
+.brand { font-family: var(--display); font-weight: 800; font-size: 22px; color: var(--ink); text-decoration: none; display: flex; align-items: baseline; gap: 8px; }
+.brand small { font-family: var(--mono); font-weight: 400; font-size: 11px; color: var(--ink-soft); letter-spacing: 0.08em; text-transform: uppercase; }
+nav.main { display: flex; gap: 4px 18px; flex-wrap: wrap; font-family: var(--display); font-weight: 500; font-size: 15px; }
+nav.main a { color: var(--ink); text-decoration: none; padding: 4px 0; border-bottom: 2px solid transparent; }
+nav.main a:hover { border-bottom-color: var(--cobalt); }
+nav.main a.admin-link { color: var(--cobalt); }
+
+/* Hero: ruled notebook page */
+.hero { background-color: var(--sheet); border-bottom: 1px solid var(--rule);
+  background-image: linear-gradient(90deg, transparent calc(max(16px, env(safe-area-inset-left, 0px)) + 40px), var(--margin-red) calc(max(16px, env(safe-area-inset-left, 0px)) + 40px), var(--margin-red) calc(max(16px, env(safe-area-inset-left, 0px)) + 42px), transparent calc(max(16px, env(safe-area-inset-left, 0px)) + 42px)),
+    repeating-linear-gradient(180deg, transparent 0, transparent 35px, var(--rule) 35px, var(--rule) 36px); }
+.hero .wrap { padding-block: 56px 48px; }
+.hero-inner { padding-left: 64px; display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 40px; align-items: end; }
+.hero h1 { font-size: clamp(52px, 9vw, 112px); font-weight: 800; letter-spacing: -0.03em; line-height: 0.95; }
+.hero h1 em { font-style: normal; color: var(--cobalt); }
+.hero .lede { font-size: 20px; margin-top: 20px; max-width: 34ch; }
+.hero .ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+.issue-card { background: var(--sheet); border: 1.5px solid var(--ink); border-radius: 4px; padding: 20px; box-shadow: 6px 6px 0 var(--cobalt-tint); }
+.issue-card .num { font-family: var(--display); font-weight: 800; font-size: 64px; line-height: 1; color: var(--cobalt); }
+.issue-card p { font-size: 15px; color: var(--ink-soft); margin-top: 8px; }
+.issue-card .status { display: inline-block; margin-top: 12px; font-family: var(--mono); font-size: 12px; background: var(--warn-tint); color: var(--warn); padding: 3px 8px; border-radius: 3px; }
+
+.btn { font-family: var(--display); font-weight: 700; font-size: 16px; border-radius: 6px; padding: 12px 20px; border: 1.5px solid var(--ink); cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+.btn.primary { background: var(--cobalt); border-color: var(--cobalt); color: var(--sheet); }
+.btn.ghost { background: transparent; color: var(--ink); }
+.btn:hover { transform: translateY(-1px); }
+.btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+
+section.block { padding-block: 72px; border-bottom: 1px solid var(--rule); }
+section.block .head { display: grid; gap: 10px; margin-bottom: 32px; max-width: 64ch; }
+section.block .head p { color: var(--ink-soft); }
+
+/* Sumario */
+.sumario { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 48px; }
+.sumario .theme h3 { font-size: clamp(28px, 4vw, 38px); font-weight: 800; }
+.sumario .theme p { margin-top: 14px; color: var(--ink-soft); }
+.toc { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
+.toc li { display: grid; grid-template-columns: 52px minmax(0, 1fr) auto; gap: 12px; align-items: baseline; padding: 11px 0; border-bottom: 1px solid var(--rule); }
+.toc .pg { font-family: var(--mono); font-size: 13px; color: var(--cobalt); font-variant-numeric: tabular-nums; }
+.toc .t { font-size: 17px; }
+.toc .g { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); text-align: right; }
+
+/* Secciones */
+.sections { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 0; border-top: 2px solid var(--ink); }
+.sec { padding: 24px 24px 24px 0; border-bottom: 1px solid var(--rule); display: grid; gap: 10px; align-content: start; }
+.sec .tag { font-family: var(--mono); font-size: 12px; color: var(--cobalt); }
+.sec p { font-size: 16px; color: var(--ink-soft); }
+.sec .meta { font-family: var(--mono); font-size: 12px; color: var(--ink); background: var(--cobalt-tint); padding: 4px 8px; border-radius: 3px; justify-self: start; }
+
+/* Club: steps */
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 16px; counter-reset: s; }
+.steps li { counter-increment: s; background: var(--sheet); border: 1px solid var(--rule); border-radius: 6px; padding: 18px; display: grid; gap: 6px; align-content: start; }
+.steps li::before { content: "Semana " counter(s); font-family: var(--mono); font-size: 12px; color: var(--margin-red); letter-spacing: 0.04em; }
+.steps b { font-family: var(--display); font-size: 17px; }
+.steps span { font-size: 15px; color: var(--ink-soft); }
+.roles { margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 0 32px; }
+.roles div { padding: 12px 0; border-bottom: 1px solid var(--rule); font-size: 16px; }
+.roles b { font-family: var(--display); }
+
+/* Forms */
+.form-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: 48px; align-items: start; }
+.aside-list { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 10px; font-size: 16px; }
+.aside-list li { padding-left: 22px; position: relative; }
+.aside-list li::before { content: ""; position: absolute; left: 0; top: 0.6em; width: 10px; height: 2px; background: var(--margin-red); }
+form.card { background: var(--sheet); border: 1px solid var(--rule-strong); border-radius: 8px; padding: 28px; display: grid; gap: 18px; }
+.row2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 18px; }
+.field { display: grid; gap: 6px; min-width: 0; }
+.field label, .field legend { font-family: var(--display); font-weight: 700; font-size: 15px; }
+.field .hint { font-size: 14px; color: var(--ink-soft); }
+input[type=text], input[type=email], select, textarea { font: inherit; font-size: 16px; color: var(--ink); background: var(--paper); border: 1px solid var(--rule-strong); border-radius: 6px; padding: 10px 12px; width: 100%; }
+textarea { min-height: 120px; resize: vertical; line-height: 1.55; }
+textarea.big { min-height: 280px; background-image: repeating-linear-gradient(180deg, transparent 0, transparent 25.8px, var(--rule) 25.8px, var(--rule) 26.8px); background-attachment: local; line-height: 26.8px; padding-top: 6px; }
+fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+.checks { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--rule-strong); border-radius: 999px; padding: 6px 12px; font-size: 15px; cursor: pointer; background: var(--paper); }
+.chip:has(input:checked) { background: var(--cobalt-tint); border-color: var(--cobalt); }
+.agree { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; }
+.agree input { margin-top: 5px; }
+.counter { font-family: var(--mono); font-size: 12px; font-variant-numeric: tabular-nums; color: var(--ink-soft); display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.counter.out { color: var(--warn); }
+.counter.in { color: var(--ok); }
+.notice { border-radius: 6px; padding: 14px 16px; font-size: 15px; display: grid; gap: 10px; }
+.notice.ok { background: var(--ok-tint); color: var(--ink); border: 1px solid var(--ok); }
+.notice.warn { background: var(--warn-tint); color: var(--ink); border: 1px solid var(--warn); }
+.notice pre { white-space: pre-wrap; font-family: var(--mono); font-size: 12px; max-height: 180px; overflow: auto; background: var(--sheet); border: 1px solid var(--rule); padding: 10px; border-radius: 4px; margin: 0; }
+.err { color: var(--margin-red); font-size: 14px; }
+
+.mine { margin-top: 20px; }
+.mine h3 { font-size: 17px; }
+.mine ul { list-style: none; padding: 0; margin: 8px 0 0; display: grid; gap: 6px; }
+.mine li { font-size: 15px; display: flex; justify-content: space-between; gap: 12px; border-bottom: 1px dashed var(--rule); padding-bottom: 6px; flex-wrap: wrap; }
+
+/* Normas */
+.rules { counter-reset: r; list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 20px 40px; }
+.rules li { counter-increment: r; display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 8px; font-size: 16px; }
+.rules li::before { content: counter(r); font-family: var(--display); font-weight: 800; font-size: 26px; color: var(--cobalt); line-height: 1; }
+.rules b { font-family: var(--display); }
+
+/* Admin panel */
+#panel { background: var(--sheet); }
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+.tabs button { font-family: var(--display); font-weight: 700; font-size: 15px; border: 1px solid var(--rule-strong); background: var(--paper); color: var(--ink); border-radius: 999px; padding: 8px 16px; cursor: pointer; }
+.tabs button[aria-selected=true] { background: var(--ink); color: var(--sheet); border-color: var(--ink); }
+.entries { display: grid; gap: 12px; }
+.entry { border: 1px solid var(--rule); border-radius: 6px; background: var(--paper); }
+.entry summary { cursor: pointer; padding: 14px 16px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; align-items: center; }
+.entry summary .who { font-family: var(--display); font-weight: 700; }
+.entry summary .sub { font-size: 14px; color: var(--ink-soft); grid-column: 1; }
+.entry .body { padding: 0 16px 16px; display: grid; gap: 10px; font-size: 15px; }
+.entry .body .txt { white-space: pre-wrap; background: var(--sheet); border: 1px solid var(--rule); border-radius: 4px; padding: 12px; max-height: 360px; overflow: auto; }
+.entry .kv { display: grid; grid-template-columns: minmax(120px, 200px) minmax(0, 1fr); gap: 4px 12px; }
+.entry .kv dt { color: var(--ink-soft); }
+.entry .kv dd { margin: 0; }
+.pill { font-family: var(--mono); font-size: 12px; padding: 3px 8px; border-radius: 3px; grid-row: 1 / span 2; grid-column: 2; }
+.pill.recibido { background: var(--cobalt-tint); color: var(--cobalt); }
+.pill.revision { background: var(--warn-tint); color: var(--warn); }
+.pill.aceptado { background: var(--ok-tint); color: var(--ok); }
+.pill.devuelto { background: var(--paper); color: var(--margin-red); border: 1px solid var(--margin-red); }
+.empty { color: var(--ink-soft); font-size: 15px; padding: 20px; border: 1px dashed var(--rule-strong); border-radius: 6px; }
+
+footer { padding-block: 40px; font-size: 14px; color: var(--ink-soft); }
+footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+@media (max-width: 760px) {
+  .hero-inner { grid-template-columns: minmax(0, 1fr); padding-left: 48px; gap: 28px; }
+  .sumario, .form-grid { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  form.card { padding: 20px; }
+  section.block { padding-block: 52px; }
+  .toc li { grid-template-columns: 44px minmax(0, 1fr); }
+  .toc .g { grid-column: 2; text-align: left; }
+  .entry .kv { grid-template-columns: minmax(0, 1fr); }
+}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio">Tinta Joven <small>Club de Escritura</small></a>
+    <nav class="main" aria-label="Secciones del sitio">
+      <a href="#numero-1">Número 1</a>
+      <a href="#secciones">Secciones</a>
+      <a href="#club">El club</a>
+      <a href="#unete">Únete</a>
+      <a href="#enviar">Envía tu texto</a>
+      <a href="#panel" class="admin-link" id="adminLink" hidden>Panel editorial</a>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-inner">
+        <div>
+          <p class="eyebrow">Revista digital del Club de Escritura Escolar</p>
+          <h1>Tinta <em>Joven</em></h1>
+          <p class="lede">Noticias, reportajes, cuentos y poemas escritos por los estudiantes de nuestra escuela. <span class="mark">Buscamos a los mejores escritores</span> para el primer número.</p>
+          <div class="ctas">
+            <a class="btn primary" href="#unete">Quiero entrar al club</a>
+            <a class="btn ghost" href="#enviar">Enviar un texto</a>
+          </div>
+        </div>
+        <aside class="issue-card" aria-label="Estado del primer número">
+          <p class="eyebrow">Número</p>
+          <div class="num">01</div>
+          <p><b>Nuestra escuela, nuestras voces.</b> 12 textos en 5 secciones, de periodismo a poesía.</p>
+          <span class="status">En preparación · 8 semanas</span>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="numero-1">
+    <div class="wrap">
+      <div class="sumario">
+        <div class="theme">
+          <p class="eyebrow">Sumario del número 1</p>
+          <h3>Nuestra escuela, nuestras voces</h3>
+          <p>Un número abierto para presentar al club y a sus autores. Los títulos son ideas de arranque: el consejo editorial los ajusta y asigna un autor a cada texto.</p>
+          <p style="margin-top:14px">¿Te ves escribiendo una de estas páginas? <a href="#unete">Postúlate al club</a>.</p>
+        </div>
+        <ol class="toc">
+          <li><span class="pg">p. 2</span><span class="t">Por qué nace este club</span><span class="g">Editorial</span></li>
+          <li><span class="pg">p. 3</span><span class="t">Conoce a los autores de este número</span><span class="g">Galería</span></li>
+          <li><span class="pg">p. 4</span><span class="t">Lo más importante que pasó este trimestre en la escuela</span><span class="g">Noticia</span></li>
+          <li><span class="pg">p. 6</span><span class="t">Un problema o un logro del colegio contado a fondo</span><span class="g">Reportaje</span></li>
+          <li><span class="pg">p. 9</span><span class="t">La persona con más años en la escuela</span><span class="g">Entrevista</span></li>
+          <li><span class="pg">p. 11</span><span class="t">Un tema de ciencia o del entorno explicado para todos</span><span class="g">Divulgación</span></li>
+          <li><span class="pg">p. 13</span><span class="t">Cómo estudiar mejor para los exámenes</span><span class="g">Guía</span></li>
+          <li><span class="pg">p. 14</span><span class="t">El libro o la película que todos deberían conocer</span><span class="g">Reseña</span></li>
+          <li><span class="pg">p. 15</span><span class="t">Cuento ganador de la convocatoria</span><span class="g">Cuento</span></li>
+          <li><span class="pg">p. 19</span><span class="t">Tres poemas sobre la escuela</span><span class="g">Poesía</span></li>
+          <li><span class="pg">p. 21</span><span class="t">Historias en 100 palabras</span><span class="g">Microrrelatos</span></li>
+          <li><span class="pg">p. 22</span><span class="t">Un cuento o diario de otro autor</span><span class="g">Cuento o diario</span></li>
+          <li><span class="pg">p. 24</span><span class="t">Convocatoria para el número 2</span><span class="g">Convocatoria</span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="secciones">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Secciones de la revista</p>
+        <h2>Cinco secciones para todo tipo de escritor</h2>
+        <p>Periodismo, textos informativos y literatura. Cada sección tiene sus géneros y su extensión.</p>
+      </div>
+      <div class="sections">
+        <div class="sec"><span class="tag">Periodismo</span><h3>Actualidad Escolar</h3><p>Lo que pasa en la escuela y el barrio, contado con fuentes: noticia, reportaje, entrevista y crónica.</p><span class="meta">300 a 900 palabras</span></div>
+        <div class="sec"><span class="tag">Opinión</span><h3>Opinión</h3><p>Puntos de vista con argumentos: editorial, columna y reseña de libros o películas.</p><span class="meta">300 a 600 palabras</span></div>
+        <div class="sec"><span class="tag">Informativo</span><h3>Saber y Descubrir</h3><p>Un tema explicado con datos claros: artículo de divulgación, guía práctica e infografía.</p><span class="meta">400 a 800 palabras</span></div>
+        <div class="sec"><span class="tag">Literatura</span><h3>Rincón Literario</h3><p>Creación propia: cuento, poesía, microrrelato y fragmentos de diario.</p><span class="meta">Cuento hasta 1.500 palabras · poema hasta 40 versos</span></div>
+        <div class="sec"><span class="tag">Comunidad</span><h3>Voces del Club</h3><p>Personas y talentos de la escuela: perfiles, galería de autores y convocatorias.</p><span class="meta">300 a 600 palabras</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="club">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Cómo trabaja el club</p>
+        <h2>De la idea a la revista en ocho semanas</h2>
+        <p>Cada número pasa por las mismas etapas. Los autores trabajan con un editor de sección que los acompaña hasta la publicación.</p>
+      </div>
+      <ol class="steps">
+        <li><b>Planeación</b><span>Consejo editorial: sumario, autores y editores.</span></li>
+        <li><b>Investigación</b><span>Entrevistas, datos e ideas. Taller de géneros.</span></li>
+        <li><b>Escritura</b><span>Primer borrador de cada texto.</span></li>
+        <li><b>Primera edición</b><span>El editor devuelve comentarios con la rúbrica.</span></li>
+        <li><b>Reescritura</b><span>Segundo borrador, fotos y permisos.</span></li>
+        <li><b>Corrección</b><span>Corrección de estilo y visto bueno del docente.</span></li>
+        <li><b>Diseño</b><span>Diagramación, portada y versión web.</span></li>
+        <li><b>Lanzamiento</b><span>Publicación y presentación en la escuela.</span></li>
+      </ol>
+      <div class="roles">
+        <div><b>Docente asesor.</b> Aprueba el sumario y la versión final.</div>
+        <div><b>Director(a) editorial.</b> Coordina el calendario y escribe el editorial.</div>
+        <div><b>Editores de sección.</b> Acompañan a los autores de su sección.</div>
+        <div><b>Correctores de estilo.</b> Revisan ortografía y coherencia.</div>
+        <div><b>Diseño y fotografía.</b> Portada, diagramación e imágenes.</div>
+        <div><b>Web y redes.</b> Publican los textos y anuncian cada número.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="unete">
+    <div class="wrap form-grid">
+      <div>
+        <p class="eyebrow">Convocatoria abierta</p>
+        <h2 style="margin-top:10px">Únete al club</h2>
+        <p style="margin-top:14px;color:var(--ink-soft)">Buscamos estudiantes que disfruten escribir, sean curiosos y cumplan sus plazos. No importa el grado: importa lo que escribes.</p>
+        <ul class="aside-list">
+          <li>Llena el formulario y comparte una muestra de tu escritura.</li>
+          <li>El equipo editorial lee cada muestra con la rúbrica del club: idea, estructura, creatividad, lenguaje y ortografía.</li>
+          <li>Te avisamos por tu docente o por el contacto que dejes.</li>
+        </ul>
+      </div>
+      <form class="card" id="formUnete" novalidate>
+        <div class="row2">
+          <div class="field"><label for="u_nombre">Nombre completo</label><input type="text" id="u_nombre" autocomplete="name" required></div>
+          <div class="field"><label for="u_grado">Grado y curso</label><input type="text" id="u_grado" placeholder="Ej.: 9.º B" required></div>
+        </div>
+        <div class="field"><label for="u_contacto">Correo o contacto</label><input type="text" id="u_contacto" placeholder="Tu correo o el de tu acudiente"></div>
+        <fieldset class="field">
+          <legend>¿Qué te gusta escribir?</legend>
+          <div class="checks" id="u_generos">
+            <label class="chip"><input type="checkbox" value="Noticias y reportajes"> Noticias y reportajes</label>
+            <label class="chip"><input type="checkbox" value="Opinión y reseñas"> Opinión y reseñas</label>
+            <label class="chip"><input type="checkbox" value="Divulgación"> Divulgación</label>
+            <label class="chip"><input type="checkbox" value="Cuento"> Cuento</label>
+            <label class="chip"><input type="checkbox" value="Poesía"> Poesía</label>
+            <label class="chip"><input type="checkbox" value="Diseño o fotografía"> Diseño o fotografía</label>
+          </div>
+        </fieldset>
+        <div class="field"><label for="u_porque">¿Por qué quieres entrar al club?</label><textarea id="u_porque" placeholder="Cuéntanos en pocas líneas" required></textarea></div>
+        <div class="field">
+          <label for="u_muestra">Muestra de escritura</label>
+          <span class="hint">Un texto tuyo de 100 a 500 palabras: un cuento, un poema, una noticia o una opinión.</span>
+          <textarea id="u_muestra" class="big" required></textarea>
+          <div class="counter" id="u_count"><span>0 palabras</span><span>100 a 500</span></div>
+        </div>
+        <label class="agree"><input type="checkbox" id="u_ok" required> Me comprometo a asistir a las reuniones del club y a cumplir los plazos de entrega.</label>
+        <p class="err" id="u_err" hidden></p>
+        <button class="btn primary" type="submit" id="u_btn">Enviar postulación</button>
+        <div id="u_result" aria-live="polite"></div>
+      </form>
+    </div>
+  </section>
+
+  <section class="block" id="enviar">
+    <div class="wrap form-grid">
+      <div>
+        <p class="eyebrow">Plantilla de entrega</p>
+        <h2 style="margin-top:10px">Envía tu texto</h2>
+        <p style="margin-top:14px;color:var(--ink-soft)">Para los autores del club. Tu texto llega al editor de su sección, que lo revisa con la rúbrica. Con 16 de 20 puntos o más pasa a corrección y publicación.</p>
+        <ul class="aside-list">
+          <li>Lee tu texto en voz alta antes de enviarlo.</li>
+          <li>Verifica nombres, fechas y cifras.</li>
+          <li>Ten los permisos de las personas y las fotos.</li>
+          <li>Puedes enviar un borrador y después la versión corregida.</li>
+        </ul>
+        <div class="mine" id="mine" hidden>
+          <h3>Mis envíos</h3>
+          <ul id="mineList"></ul>
+        </div>
+      </div>
+      <form class="card" id="formTexto" novalidate>
+        <div class="row2">
+          <div class="field"><label for="t_nombre">Nombre completo</label><input type="text" id="t_nombre" autocomplete="name" required></div>
+          <div class="field"><label for="t_grado">Grado y curso</label><input type="text" id="t_grado" required></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="t_seccion">Sección</label>
+            <select id="t_seccion" required>
+              <option value="Actualidad Escolar">Actualidad Escolar</option>
+              <option value="Opinión">Opinión</option>
+              <option value="Saber y Descubrir">Saber y Descubrir</option>
+              <option value="Rincón Literario">Rincón Literario</option>
+              <option value="Voces del Club">Voces del Club</option>
+            </select>
+          </div>
+          <div class="field"><label for="t_genero">Género</label><select id="t_genero" required></select></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="t_version">Versión</label>
+            <select id="t_version"><option>Borrador 1</option><option>Borrador 2</option><option>Final</option></select>
+          </div>
+          <div class="field"><label for="t_titulo">Título</label><input type="text" id="t_titulo" placeholder="Máximo 12 palabras" required></div>
+        </div>
+        <div class="field"><label for="t_bajada">Bajada o resumen</label><input type="text" id="t_bajada" placeholder="Una o dos frases que inviten a leer"></div>
+        <div class="field">
+          <label for="t_texto">Texto completo</label>
+          <span class="hint" id="t_hint">En periodismo, el primer párrafo responde qué, quién, cuándo, dónde y por qué.</span>
+          <textarea id="t_texto" class="big" required></textarea>
+          <div class="counter" id="t_count"><span>0 palabras</span><span></span></div>
+        </div>
+        <div class="field"><label for="t_fuentes">Fuentes y personas entrevistadas</label><textarea id="t_fuentes" style="min-height:80px" placeholder="Quiénes son, cómo los contactaste y si dieron permiso"></textarea></div>
+        <div class="row2">
+          <div class="field"><label for="t_fotos">Fotos o ilustraciones</label><input type="text" id="t_fotos" placeholder="Autor y permiso"></div>
+          <div class="field"><label for="t_ia">¿Usaste inteligencia artificial?</label><input type="text" id="t_ia" placeholder="No / Sí, para…"></div>
+        </div>
+        <label class="agree"><input type="checkbox" id="t_ok" required> Declaro que este texto es de mi autoría y autorizo al Club de Escritura a publicarlo en la revista digital y en la web de la escuela.</label>
+        <p class="err" id="t_err" hidden></p>
+        <button class="btn primary" type="submit" id="t_btn">Enviar texto</button>
+        <div id="t_result" aria-live="polite"></div>
+      </form>
+    </div>
+  </section>
+
+  <section class="block" id="normas">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Normas para autores</p>
+        <h2>Lo que pedimos a cada texto</h2>
+      </div>
+      <ol class="rules">
+        <li><span><b>Originalidad.</b> El texto es tuyo. Si usas ideas o frases de otros, cita la fuente.</span></li>
+        <li><span><b>Fuentes.</b> En periodismo e informativos, usa al menos dos fuentes y verifica los datos.</span></li>
+        <li><span><b>Permisos.</b> Pide permiso a quien entrevistes o fotografíes. Los menores necesitan autorización de su familia.</span></li>
+        <li><span><b>Respeto.</b> Nada de burlas, insultos ni datos privados. Se critica con argumentos.</span></li>
+        <li><span><b>Información y opinión separadas.</b> La noticia cuenta hechos; la columna da tu punto de vista.</span></li>
+        <li><span><b>Inteligencia artificial.</b> Puedes usarla para buscar ideas o revisar ortografía, y debes decirlo. El texto lo escribes tú.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="block" id="panel" hidden>
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Solo para el equipo editorial</p>
+        <h2>Panel editorial</h2>
+        <p>Postulaciones y textos recibidos. Cambia el estado de cada uno a medida que avanza la revisión.</p>
+      </div>
+      <div class="tabs" role="tablist">
+        <button type="button" role="tab" aria-selected="true" id="tabPost">Postulaciones (<span id="nPost">0</span>)</button>
+        <button type="button" role="tab" aria-selected="false" id="tabTex">Textos (<span id="nTex">0</span>)</button>
+      </div>
+      <div class="entries" id="listPost"><p class="empty">Todavía no hay postulaciones. Aparecerán aquí cuando un estudiante llene el formulario “Únete al club”.</p></div>
+      <div class="entries" id="listTex" hidden><p class="empty">Todavía no hay textos. Aparecerán aquí cuando un autor use “Envía tu texto”.</p></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Tinta Joven · Revista del Club de Escritura Escolar</span>
+    <span>Número 1 en preparación</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // Enlaces a los formularios del club (por ejemplo, Google Forms). Déjalos vacíos para pedir que entreguen el texto al docente.
+  const FORM_UNETE = "";
+  const FORM_TEXTO = "";
+  const GENEROS = {
+    "Actualidad Escolar": ["Noticia", "Reportaje", "Entrevista", "Crónica"],
+    "Opinión": ["Editorial", "Columna", "Reseña"],
+    "Saber y Descubrir": ["Artículo de divulgación", "Guía práctica", "Infografía"],
+    "Rincón Literario": ["Cuento", "Poesía", "Microrrelato", "Diario"],
+    "Voces del Club": ["Perfil", "Galería de autores", "Convocatoria"]
+  };
+  const LIMITES = {
+    "Actualidad Escolar": [300, 900], "Opinión": [300, 600], "Saber y Descubrir": [400, 800],
+    "Rincón Literario": [10, 1500], "Voces del Club": [300, 600]
+  };
+  const ESTADOS = [["recibido", "Recibido"], ["revision", "En revisión"], ["aceptado", "Aceptado"], ["devuelto", "Devuelto al autor"]];
+  const $ = id => document.getElementById(id);
+  const words = s => (s.trim().match(/\S+/g) || []).length;
+
+  let db = null, uid = null, canWrite = true;
+
+  // Género depende de la sección
+  function fillGeneros() {
+    const sec = $("t_seccion").value, sel = $("t_genero"), prev = sel.value;
+    sel.innerHTML = "";
+    GENEROS[sec].forEach(g => { const o = document.createElement("option"); o.textContent = g; sel.appendChild(o); });
+    if (GENEROS[sec].includes(prev)) sel.value = prev;
+    $("t_hint").textContent = sec === "Rincón Literario"
+      ? "Cuento hasta 1.500 palabras; poema hasta 40 versos."
+      : sec === "Actualidad Escolar"
+        ? "El primer párrafo responde qué, quién, cuándo, dónde y por qué."
+        : "Escribe para un lector que no conoce el tema.";
+    countTexto();
+  }
+  function setCount(el, n, lo, hi) {
+    el.firstElementChild.textContent = n + (n === 1 ? " palabra" : " palabras");
+    el.lastElementChild.textContent = sec_label(lo, hi);
+    el.classList.toggle("in", n >= lo && n <= hi);
+    el.classList.toggle("out", n > hi);
+  }
+  function sec_label(lo, hi) { return lo <= 10 ? "hasta " + hi.toLocaleString("es") : lo + " a " + hi; }
+  function countTexto() { const [lo, hi] = LIMITES[$("t_seccion").value]; setCount($("t_count"), words($("t_texto").value), lo, hi); }
+  function countMuestra() { setCount($("u_count"), words($("u_muestra").value), 100, 500); }
+  $("t_seccion").addEventListener("change", fillGeneros);
+  $("t_texto").addEventListener("input", countTexto);
+  $("u_muestra").addEventListener("input", countMuestra);
+  fillGeneros(); countMuestra();
+
+  // Respaldo: texto para copiar cuando no se puede guardar en línea
+  function fallback(box, titulo, texto) {
+    box.innerHTML = "";
+    const n = document.createElement("div"); n.className = "notice warn";
+    const p = document.createElement("p");
+    const url = titulo === "postulación" ? FORM_UNETE : FORM_TEXTO;
+    p.textContent = url
+      ? "Último paso: copia tu información y pégala en el formulario del club."
+      : "Último paso: copia tu información y entrégala a tu docente o al equipo del club.";
+    const pre = document.createElement("pre"); pre.textContent = texto;
+    const b = document.createElement("button"); b.type = "button"; b.className = "btn ghost"; b.textContent = "Copiar " + titulo;
+    b.addEventListener("click", async () => {
+      try { await navigator.clipboard.writeText(texto); b.textContent = "Copiado"; }
+      catch (e) { const r = document.createRange(); r.selectNodeContents(pre); const s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = "Texto seleccionado: cópialo"; }
+    });
+    n.append(p, pre, b);
+    if (url) { const a = document.createElement("a"); a.className = "btn primary"; a.href = url; a.target = "_blank"; a.rel = "noopener"; a.textContent = "Abrir formulario del club"; n.appendChild(a); }
+    box.appendChild(n);
+  }
+  function success(box, msg) {
+    box.innerHTML = "";
+    const n = document.createElement("div"); n.className = "notice ok";
+    const p = document.createElement("p"); p.textContent = msg; n.appendChild(p); box.appendChild(n);
+  }
+  function showErr(el, msg) { el.textContent = msg; el.hidden = !msg; }
+
+  // Postulación
+  $("formUnete").addEventListener("submit", async e => {
+    e.preventDefault();
+    const d = {
+      nombre: $("u_nombre").value.trim(), grado: $("u_grado").value.trim(), contacto: $("u_contacto").value.trim(),
+      generos: [...document.querySelectorAll("#u_generos input:checked")].map(i => i.value),
+      porque: $("u_porque").value.trim(), muestra: $("u_muestra").value.trim()
+    };
+    const faltan = [];
+    if (!d.nombre) faltan.push("tu nombre");
+    if (!d.grado) faltan.push("tu grado");
+    if (!d.porque) faltan.push("por qué quieres entrar");
+    if (words(d.muestra) < 30) faltan.push("una muestra de escritura");
+    if (!$("u_ok").checked) faltan.push("aceptar el compromiso");
+    if (faltan.length) { showErr($("u_err"), "Falta: " + faltan.join(", ") + "."); return; }
+    showErr($("u_err"), "");
+    const plano = `POSTULACIÓN AL CLUB DE ESCRITURA\nNombre: ${d.nombre}\nGrado: ${d.grado}\nContacto: ${d.contacto || "-"}\nLe gusta escribir: ${d.generos.join(", ") || "-"}\n\nPor qué quiere entrar:\n${d.porque}\n\nMuestra de escritura:\n${d.muestra}`;
+    const btn = $("u_btn"); btn.disabled = true; btn.textContent = "Enviando…";
+    try {
+      if (!db || !uid || !canWrite) throw new Error("sin db");
+      await db.doc("postulaciones/" + uid).set({ ...d, palabras: words(d.muestra), estado: "recibido", fecha: new Date().toISOString() });
+      success($("u_result"), "¡Recibimos tu postulación, " + d.nombre.split(" ")[0] + "! El equipo editorial la leerá y te avisará. Si la envías otra vez, se reemplaza la anterior.");
+    } catch (err) {
+      fallback($("u_result"), "postulación", plano);
+    } finally { btn.disabled = false; btn.textContent = "Enviar postulación"; }
+  });
+
+  // Envío de texto
+  $("formTexto").addEventListener("submit", async e => {
+    e.preventDefault();
+    const d = {
+      nombre: $("t_nombre").value.trim(), grado: $("t_grado").value.trim(), seccion: $("t_seccion").value,
+      genero: $("t_genero").value, version: $("t_version").value, titulo: $("t_titulo").value.trim(),
+      bajada: $("t_bajada").value.trim(), texto: $("t_texto").value.trim(), fuentes: $("t_fuentes").value.trim(),
+      fotos: $("t_fotos").value.trim(), ia: $("t_ia").value.trim()
+    };
+    const faltan = [];
+    if (!d.nombre) faltan.push("tu nombre");
+    if (!d.grado) faltan.push("tu grado");
+    if (!d.titulo) faltan.push("el título");
+    if (words(d.titulo) > 12) faltan.push("un título de máximo 12 palabras");
+    if (words(d.texto) < 10) faltan.push("el texto");
+    if (!$("t_ok").checked) faltan.push("la declaración de autoría");
+    if (faltan.length) { showErr($("t_err"), "Falta: " + faltan.join(", ") + "."); return; }
+    showErr($("t_err"), "");
+    const plano = `ENTREGA DE TEXTO · TINTA JOVEN\nAutor: ${d.nombre} (${d.grado})\nSección: ${d.seccion} · ${d.genero} · ${d.version}\nTítulo: ${d.titulo}\nBajada: ${d.bajada || "-"}\nPalabras: ${words(d.texto)}\nFuentes: ${d.fuentes || "-"}\nFotos: ${d.fotos || "-"}\nIA: ${d.ia || "-"}\n\n${d.texto}`;
+    const btn = $("t_btn"); btn.disabled = true; btn.textContent = "Enviando…";
+    try {
+      if (!db || !uid || !canWrite) throw new Error("sin db");
+      const fecha = new Date().toISOString();
+      const autor = db.doc("envios/" + uid);
+      await autor.set({ nombre: d.nombre, grado: d.grado, ultimo: fecha });
+      await autor.collection("textos").add({ ...d, palabras: words(d.texto), estado: "recibido", fecha });
+      success($("t_result"), "¡Texto recibido! “" + d.titulo + "” ya está en manos del editor de " + d.seccion + ".");
+      loadMine();
+    } catch (err) {
+      fallback($("t_result"), "entrega", plano);
+    } finally { btn.disabled = false; btn.textContent = "Enviar texto"; }
+  });
+
+  const fmtFecha = iso => { try { return new Date(iso).toLocaleDateString("es", { day: "numeric", month: "short" }); } catch (e) { return ""; } };
+  const estadoLabel = k => (ESTADOS.find(e => e[0] === k) || ESTADOS[0])[1];
+
+  async function loadMine() {
+    if (!db || !uid) return;
+    try {
+      const snap = await db.doc("envios/" + uid).collection("textos").orderBy("fecha", "desc").limit(20).get();
+      if (snap.empty) return;
+      const ul = $("mineList"); ul.innerHTML = "";
+      snap.docs.forEach(s => {
+        const t = s.data(); const li = document.createElement("li");
+        const a = document.createElement("span"); a.textContent = t.titulo + " · " + t.version;
+        const b = document.createElement("span"); b.textContent = estadoLabel(t.estado) + " · " + fmtFecha(t.fecha);
+        li.append(a, b); ul.appendChild(li);
+      });
+      $("mine").hidden = false;
+    } catch (e) {}
+  }
+
+  // Panel editorial
+  function kv(pairs) {
+    const dl = document.createElement("dl"); dl.className = "kv";
+    pairs.forEach(([k, v]) => { if (!v) return; const dt = document.createElement("dt"); dt.textContent = k; const dd = document.createElement("dd"); dd.textContent = v; dl.append(dt, dd); });
+    return dl;
+  }
+  function entry(who, sub, estado, pairs, texto, onEstado) {
+    const det = document.createElement("details"); det.className = "entry";
+    const sm = document.createElement("summary");
+    const w = document.createElement("span"); w.className = "who"; w.textContent = who;
+    const pill = document.createElement("span"); pill.className = "pill " + estado; pill.textContent = estadoLabel(estado);
+    const s = document.createElement("span"); s.className = "sub"; s.textContent = sub;
+    sm.append(w, pill, s); det.appendChild(sm);
+    const body = document.createElement("div"); body.className = "body";
+    body.appendChild(kv(pairs));
+    if (texto) { const t = document.createElement("div"); t.className = "txt"; t.textContent = texto; body.appendChild(t); }
+    const f = document.createElement("div"); f.className = "field";
+    const lab = document.createElement("label"); lab.textContent = "Estado";
+    const sel = document.createElement("select");
+    ESTADOS.forEach(([k, l]) => { const o = document.createElement("option"); o.value = k; o.textContent = l; if (k === estado) o.selected = true; sel.appendChild(o); });
+    sel.addEventListener("change", async () => {
+      sel.disabled = true;
+      try { await onEstado(sel.value); pill.className = "pill " + sel.value; pill.textContent = estadoLabel(sel.value); }
+      catch (e) { sel.value = estado; }
+      sel.disabled = false;
+    });
+    lab.appendChild(sel); f.appendChild(lab); body.appendChild(f);
+    det.appendChild(body);
+    return det;
+  }
+  async function loadPanel() {
+    try {
+      const ps = await db.collection("postulaciones").orderBy("fecha", "desc").limit(500).get();
+      $("nPost").textContent = ps.size;
+      if (!ps.empty) {
+        const box = $("listPost"); box.innerHTML = "";
+        ps.docs.forEach(s => {
+          const p = s.data();
+          box.appendChild(entry(p.nombre || "Sin nombre", (p.grado || "") + " · " + fmtFecha(p.fecha) + " · " + (p.palabras || 0) + " palabras",
+            p.estado || "recibido",
+            [["Contacto", p.contacto], ["Le gusta escribir", (p.generos || []).join(", ")], ["Por qué quiere entrar", p.porque]],
+            p.muestra, v => db.doc("postulaciones/" + s.id).update({ estado: v })));
+        });
+      }
+    } catch (e) {}
+    try {
+      const autores = await db.collection("envios").limit(500).get();
+      const all = [];
+      for (const a of autores.docs) {
+        const ts = await db.doc("envios/" + a.id).collection("textos").limit(100).get();
+        ts.docs.forEach(t => all.push({ autor: a.id, id: t.id, ...t.data() }));
+      }
+      all.sort((x, y) => (y.fecha || "").localeCompare(x.fecha || ""));
+      $("nTex").textContent = all.length;
+      if (all.length) {
+        const box = $("listTex"); box.innerHTML = "";
+        all.forEach(t => box.appendChild(entry(t.titulo || "Sin título", t.nombre + " · " + t.seccion + " · " + t.genero + " · " + t.version + " · " + (t.palabras || 0) + " palabras · " + fmtFecha(t.fecha),
+          t.estado || "recibido",
+          [["Grado", t.grado], ["Bajada", t.bajada], ["Fuentes", t.fuentes], ["Fotos", t.fotos], ["Uso de IA", t.ia]],
+          t.texto, v => db.doc("envios/" + t.autor + "/textos/" + t.id).update({ estado: v }))));
+      }
+    } catch (e) {}
+  }
+  function tab(which) {
+    const post = which === "post";
+    $("tabPost").setAttribute("aria-selected", post); $("tabTex").setAttribute("aria-selected", !post);
+    $("listPost").hidden = !post; $("listTex").hidden = post;
+  }
+  $("tabPost").addEventListener("click", () => tab("post"));
+  $("tabTex").addEventListener("click", () => tab("tex"));
+
+  async function start() {
+    if (!window.claude || !window.claude.use) return;
+    try {
+      const [d, u] = await Promise.all([window.claude.use("db"), window.claude.use("user")]);
+      db = d;
+      if (u) {
+        uid = await u.id();
+        const w = await u.can("data.write");
+        if (w === false) canWrite = false;
+        const editor = await u.canEdit();
+        if (editor && db) { $("panel").hidden = false; $("adminLink").hidden = false; loadPanel(); }
+      }
+      loadMine();
+    } catch (e) {}
+  }
+  start();
+})();
+</script>
+
+</body>
+</html>
