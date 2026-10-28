@@ -233,6 +233,29 @@ section.block .head p { color: var(--ink-soft); font-size: 18px; }
 .reader-text ul { margin: 0; padding-left: 22px; }
 body.leyendo { overflow: hidden; }
 
+/* Galería */
+.gallery { background: var(--sheet); border-bottom: 2px solid var(--border); }
+.g-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); grid-auto-rows: 200px; gap: 18px; }
+.g-item { grid-column: span 2; position: relative; padding: 0; border: 2px solid var(--border); border-radius: 18px; overflow: hidden; cursor: zoom-in; background: var(--paper); box-shadow: 5px 5px 0 var(--shadow); transition: transform .2s, box-shadow .2s; font: inherit; color: inherit; text-align: left; }
+.g-item.g-big { grid-column: span 4; grid-row: span 2; }
+.g-item:nth-child(3n+2) { transform: rotate(.8deg); }
+.g-item:nth-child(3n) { transform: rotate(-.8deg); }
+.g-item:hover { transform: translate(-3px, -3px) rotate(0); box-shadow: 9px 9px 0 var(--sun); }
+.g-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s; }
+.g-item:hover img { transform: scale(1.05); }
+.g-cap { position: absolute; left: 12px; bottom: 12px; right: 12px; display: grid; gap: 2px; justify-items: start; }
+.g-cap b { font-family: var(--display); font-weight: 800; font-size: 17px; background: var(--sun); color: var(--on-sun); padding: 3px 10px; border-radius: 999px; border: 2px solid #0f1a3d; }
+.g-cap small { font-family: var(--mono); font-size: 11.5px; background: rgba(15,26,61,.82); color: #fff; padding: 2px 8px; border-radius: 6px; }
+.g-big .g-cap b { font-size: 22px; }
+.lightbox { border: 2px solid var(--border); border-radius: 18px; padding: 0; max-width: min(1100px, calc(100vw - 32px)); background: var(--sheet); color: var(--ink); box-shadow: 10px 10px 0 var(--shadow); }
+.lightbox::backdrop { background: rgba(5,10,30,.82); }
+.lightbox figure { margin: 0; }
+.lightbox img { display: block; max-width: 100%; max-height: 78vh; width: auto; margin: 0 auto; }
+.lightbox figcaption { padding: 14px 56px 16px 18px; font-size: 16px; }
+.lightbox figcaption b { font-family: var(--display); }
+.lightbox figcaption span { color: var(--ink-soft); }
+.lb-close { position: absolute; top: 10px; right: 10px; width: 42px; height: 42px; border-radius: 50%; border: 2px solid #0f1a3d; background: var(--sun); color: #0f1a3d; font-size: 26px; line-height: 1; cursor: pointer; }
+
 /* Sumario */
 .sumario { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 56px; }
 .sumario .theme { align-self: start; position: sticky; top: 100px; }
@@ -384,6 +407,12 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
   .toc .g { grid-column: 2; text-align: left; }
   .entry .kv { grid-template-columns: minmax(0, 1fr); }
   .ticker span { font-size: 16px; }
+  .g-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 150px; gap: 12px; }
+  .g-item, .g-item.g-big { grid-column: span 1; grid-row: span 1; }
+  .g-item.g-big { grid-column: span 2; grid-row: span 2; }
+  .g-item:last-child { grid-column: span 2; }
+  .g-cap b { font-size: 13px; } .g-big .g-cap b { font-size: 17px; }
+  .g-cap small { display: none; } .g-big .g-cap small { display: block; }
 }
 </style>
 </head>
@@ -395,6 +424,7 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
     <nav class="main" aria-label="Secciones del sitio">
       <a href="#periodismo" class="nav-per">Periodismo</a>
       <a href="#literario" class="nav-lit">Literario</a>
+      <a href="#galeria">Galería</a>
       <a href="#numero-1">Número 1</a>
       <a href="#club">El club</a>
       <a href="#unete">Únete</a>
@@ -535,6 +565,50 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
       <div class="reader-text" id="lectorTexto"></div>
     </article>
   </div>
+
+  <section class="block gallery" id="galeria">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Galería</p>
+        <h2>Vida en <span class="mark">El Recuerdo</span></h2>
+        <p>Muestras, proyectos y celebraciones: las historias que el club sale a contar. Toca una foto para verla en grande.</p>
+      </div>
+      <div class="g-grid">
+        <button type="button" class="g-item g-big" data-src="imagenes/galeria-anos-2000.jpg" data-title="Bienvenidos a los años 2000" data-sub="Música, moda, televisión y tecnología de la década">
+          <img src="imagenes/galeria-anos-2000.jpg" alt="Estudiantes presentan la muestra de los años 2000 frente a un mural de estrellas" width="1200" height="900" loading="lazy">
+          <span class="g-cap"><b>Bienvenidos a los años 2000</b><small>Música, moda, televisión y tecnología de la década</small></span>
+        </button>
+        <button type="button" class="g-item " data-src="imagenes/galeria-anos-80.jpg" data-title="Los 80" data-sub="Música, moda, cine y tecnología">
+          <img src="imagenes/galeria-anos-80.jpg" alt="Estudiante en el stand de los años 80 con discos, casetes y un televisor antiguo" width="1200" height="900" loading="lazy">
+          <span class="g-cap"><b>Los 80</b><small>Música, moda, cine y tecnología</small></span>
+        </button>
+        <button type="button" class="g-item " data-src="imagenes/galeria-anos-60.jpg" data-title="Años 60" data-sub="Paz, amor y música">
+          <img src="imagenes/galeria-anos-60.jpg" alt="Estudiantes en el stand de los años 60 con una máquina de escribir y un teléfono antiguo" width="1200" height="900" loading="lazy">
+          <span class="g-cap"><b>Años 60</b><small>Paz, amor y música</small></span>
+        </button>
+        <button type="button" class="g-item " data-src="imagenes/galeria-educacion-vial.jpg" data-title="La vía también educa" data-sub="Proyecto de educación vial">
+          <img src="imagenes/galeria-educacion-vial.jpg" alt="Estudiantes exponen el proyecto de educación vial en un salón" width="1200" height="900" loading="lazy">
+          <span class="g-cap"><b>La vía también educa</b><small>Proyecto de educación vial</small></span>
+        </button>
+        <button type="button" class="g-item " data-src="imagenes/galeria-anos-90.jpg" data-title="Lo mejor de los 90" data-sub="Una puesta en escena de la década">
+          <img src="imagenes/galeria-anos-90.jpg" alt="Estudiantes actúan frente al mural de los años 90" width="1200" height="675" loading="lazy">
+          <span class="g-cap"><b>Lo mejor de los 90</b><small>Una puesta en escena de la década</small></span>
+        </button>
+        <button type="button" class="g-item " data-src="imagenes/galeria-promocion-2026.jpg" data-title="Promoción 2026" data-sub="Kleos Doxa en el escenario">
+          <img src="imagenes/galeria-promocion-2026.jpg" alt="La promoción 2026 en el escenario frente a todo el colegio" width="1200" height="900" loading="lazy">
+          <span class="g-cap"><b>Promoción 2026</b><small>Kleos Doxa en el escenario</small></span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <dialog class="lightbox" id="lightbox" aria-labelledby="lbTitle">
+    <figure>
+      <img id="lbImg" alt="">
+      <figcaption><b id="lbTitle"></b> <span id="lbSub"></span></figcaption>
+    </figure>
+    <button type="button" class="lb-close" id="lbClose" aria-label="Cerrar">×</button>
+  </dialog>
 
   <section class="block" id="numero-1">
     <div class="wrap">
@@ -1108,6 +1182,18 @@ footer .wrap { display: flex; justify-content: space-between; align-items: cente
     }
   }
   cargarTextos();
+
+  // Galería: ver foto en grande
+  (() => {
+    const lb = $("lightbox"); if (!lb || !lb.showModal) return;
+    document.querySelectorAll(".g-item").forEach(b => b.addEventListener("click", () => {
+      $("lbImg").src = b.dataset.src; $("lbImg").alt = b.querySelector("img").alt;
+      $("lbTitle").textContent = b.dataset.title; $("lbSub").textContent = b.dataset.sub;
+      lb.showModal();
+    }));
+    $("lbClose").addEventListener("click", () => lb.close());
+    lb.addEventListener("click", e => { if (e.target === lb) lb.close(); });
+  })();
 
   async function start() {
     if (!window.claude || !window.claude.use) return;
